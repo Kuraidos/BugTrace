@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./BugTrace/BugTraceFrontEnd/bugtrace-app
+        working-directory: ./BugTraceFrontEnd/bugtrace-app
 
     strategy:
       matrix:
