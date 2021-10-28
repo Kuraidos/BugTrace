@@ -24,6 +24,6 @@ jobs:
           uses: canastro/copy-action@0.0.2
           with:
             # Source file
-            source: BugTraceFrontEnd/bugtrace-app/package-lock.json
+            source: "BugTraceFrontEnd/bugtrace-app/package-lock.json"
             # Target file
-            target: ../../test.json
+            target: "../../test.json"
