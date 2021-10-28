@@ -13,14 +13,13 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: './BugTraceFrontEnd/bugtrace-app/'
 
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    defaults:
+      run:
+        working-directory: 'BugTraceFrontEnd/bugtrace-app'
 
     steps:
     - uses: actions/checkout@v2
