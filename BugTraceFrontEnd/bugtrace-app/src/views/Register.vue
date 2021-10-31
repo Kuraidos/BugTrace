@@ -8,19 +8,19 @@
           <form>
             <div class="form-group myInputs">
               <label for="username">Username</label>
-              <input type="text" class="form-control" id="username"  placeholder="Josh">
+              <input v-model="username" type="text" class="form-control" id="username"  placeholder="Josh">
             </div>
             <div class="form-group myInputs">
               <label for="email">Email address</label>
-              <input type="email" class="form-control" id="email" placeholder="Example@email.com">
+              <input v-model="email" type="email" class="form-control" id="email" placeholder="Example@email.com">
             </div>
             <div class="form-group myInputs">
               <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Enter Your Password">
+              <input v-model="password" type="password" class="form-control" id="password" placeholder="Enter Your Password">
             </div>
             <div class="form-group myInputs">
               <label for="passwordConfirm">Confirm Password</label>
-              <input type="password" class="form-control" id="passwordConfirm" placeholder="Confirm Your Password">
+              <input v-model="passwordRe" type="password" class="form-control" id="passwordConfirm" placeholder="Confirm Your Password">
             </div>
             <button class="btn btn-primary myBigButton">Register</button>
           </form>
@@ -39,14 +39,39 @@ export default {
   data()
   {
     return{
-      formData: { userId:"Hello"}
+       username:"",email:"",password:"",passwordRe:"",error: ""
     }
   },
   methods: {
         register()
         {
-          console.log("Hello")
-          axios.post('http://localhost:8080/register',this.formData).then(response =>{console.log(response)})
+          this.error="";
+          if(this.ConfirmPassword())
+          {
+              axios.post('http://localhost:8080/register', {username: this.username, email: this.email, password: this.password}).then(response =>{
+              if(response.data!=1)
+              {
+                this.ServerError(response.data)
+              }
+              console.log(response.data)})
+          }
+          console.log(this.error)
+        },
+        ConfirmPassword()
+        {
+          if(this.password==this.passwordRe)
+          {
+            return(true);
+          }
+          else if(this.password.isEmpty() || this.password.length<8 )
+          {
+            this.error="Password is too short!"
+          }
+          return false;
+        },
+        ServerError(number)
+        {
+          this.error="Error"
         }
       }
 }
