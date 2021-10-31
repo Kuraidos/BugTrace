@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class Test
 {
-    @PostMapping("register")
+    /*@PostMapping("register")
     public int giveNumber()
     {
         return (42);
@@ -16,4 +16,6 @@ public class Test
     public int giveNumberino() {
         System.out.println("Hello");
         return(42);}
+
+     */
 }
