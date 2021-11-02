@@ -1,7 +1,7 @@
 package com.BugTrace.BugTraceServer.api;
 
 import com.BugTrace.BugTraceServer.model.User;
-import com.BugTrace.BugTraceServer.service.UserService;
+import com.BugTrace.BugTraceServer.service.UserRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserRegisterController {
-    private final UserService userService;
+    private final UserRegisterService userService;
 
     @Autowired
-    public UserRegisterController(UserService userService)
+    public UserRegisterController(UserRegisterService userService)
     {
         this.userService=userService;
     }
@@ -22,11 +22,5 @@ public class UserRegisterController {
     {
         System.out.println(user);
         return  userService.addUser(user);
-    }
-
-    @GetMapping
-    public int displayUser(@RequestBody User user)
-    {
-        return 45;
     }
 }

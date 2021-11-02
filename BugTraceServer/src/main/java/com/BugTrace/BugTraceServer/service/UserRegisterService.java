@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService
+public class UserRegisterService
 {
     private final UserDao userDao;
     @Autowired
-    public UserService(@Qualifier("FakeDB") UserDao userDao)
+    public UserRegisterService(@Qualifier("FakeDB") UserDao userDao)
     {
         this.userDao=userDao;
     }

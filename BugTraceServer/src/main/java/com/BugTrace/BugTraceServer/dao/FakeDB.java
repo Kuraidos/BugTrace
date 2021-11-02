@@ -17,4 +17,19 @@ public class FakeDB implements UserDao
         fakeDB.add(user);
         return 1;
     }
+
+    @Override
+    public User getUser(String username, String password)
+    {
+        for (User user:fakeDB)
+        {
+            if(user.getUsername().equals(username) && user.getPassword().equals(password))
+            {
+                return user;
+            }
+        }
+        return null;
+    }
+
+
 }
