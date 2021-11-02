@@ -28,4 +28,4 @@ jobs:
       run: mvn install
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag server-side:$(date +%s)
+      run: docker build -t server-side
