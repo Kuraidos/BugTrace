@@ -19,11 +19,11 @@ public class FakeDB implements UserDao
     }
 
     @Override
-    public User getUser(String username, String password)
+    public User getUser(String email, String password)
     {
         for (User user:fakeDB)
         {
-            if(user.getUsername().equals(username) && user.getPassword().equals(password))
+            if(user.getEmail().equals(email) && user.getPassword().equals(password))
             {
                 return user;
             }

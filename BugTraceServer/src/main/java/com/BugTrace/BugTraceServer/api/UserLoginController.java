@@ -1,5 +1,6 @@
 package com.BugTrace.BugTraceServer.api;
 
+import com.BugTrace.BugTraceServer.model.MainPageData;
 import com.BugTrace.BugTraceServer.model.User;
 import com.BugTrace.BugTraceServer.service.UserLoginService;
 import com.BugTrace.BugTraceServer.service.UserRegisterService;
@@ -21,8 +22,9 @@ public class UserLoginController
     }
 
     @PostMapping
-    public int getUser(@RequestBody ObjectNode json)
+    public MainPageData getUser(@RequestBody ObjectNode json)
     {
-        return (userService.getUser(json.get("username").asText(),json.get("password").asText()));
+        System.out.println(userService.getMainPageData(json.get("email").asText(),json.get("password").asText()));
+        return (userService.getMainPageData(json.get("email").asText(),json.get("password").asText()));
     }
 }

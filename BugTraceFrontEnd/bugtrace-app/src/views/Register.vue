@@ -5,6 +5,7 @@
       <div class="col-sm"></div>
       <div class="col-sm">
         <div class="loginForm" @submit.prevent="register">
+          {{error}}
           <form>
             <div class="form-group myInputs">
               <label for="username">Username</label>
@@ -29,7 +30,6 @@
       <div class="col-sm"></div>
     </div>
   </div>
-  <div></div>
 </template>
 
 <script>
@@ -39,23 +39,18 @@ export default {
   data()
   {
     return{
-       username:"",email:"",password:"",passwordRe:"",error: ""
+       username:"",email:"",password:"",passwordRe:"",error:""
     }
   },
   methods: {
         register()
         {
-          this.error="";
           if(this.ConfirmPassword())
           {
-              axios.post('http://localhost:8080/register', {username: this.username, email: this.email, password: this.password}).then(response =>{
-              if(response.data!=1)
-              {
-                this.ServerError(response.data)
-              }
-              console.log(response.data)})
+              axios.post('http://localhost:8080/register', {username: this.username, email: this.email, password: this.password}).then(function (response) {
+                this.checkServerError(response.data)
+              }.bind(this));
           }
-          console.log(this.error)
         },
         ConfirmPassword()
         {
@@ -69,11 +64,23 @@ export default {
           }
           return false;
         },
-        ServerError(number)
+        checkServerError(number)
         {
-          this.error="Error"
+          if(number==1)
+          {
+            this.$router.push({name:"Login"});
+          }
+          else if(number==2)
+          {
+            this.error="dis is bad"
+          }
         }
+      },
+      updated()
+      {
+          this.checkServerError()
       }
+
 }
 </script>
 

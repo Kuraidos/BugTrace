@@ -4,27 +4,27 @@
     <div class="row">
       <div class="col-sm"></div>
       <div class="col-sm">
-        <div class="loginForm">
+        <div class="loginForm" @submit.prevent="login">
           <form>
             <div class="form-group myInputs">
               <label for="email">Email address</label>
-              <input type="email" class="form-control" id="email"  placeholder="Example@email.com">
+              <input v-model="email" type="email" class="form-control" id="email"  placeholder="Example@email.com">
             </div>
             <div class="form-group myInputs">
               <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Enter Your Password">
+              <input v-model="password" type="password" class="form-control" id="password" placeholder="Enter Your Password">
             </div>
             <div class="form-check">
               <label for="exampleCheck1">Remember Me</label>
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <a href="#" class="forgotPassword">Forgot password?</a>
+              <router-link class="forgotPassword" to="/">Forgot password?</router-link>
             </div>
             <button class="btn btn-primary myBigButton">Login</button>
           </form>
         </div>
         <div class="sighUp">
-          <p class="p-0">Don't have an Account? <a href="/register">Sign up now!</a>
-            <br><a href="#">Demo</a>
+          <p class="p-0">Don't have an Account? <router-link :to="{ name: 'Register'}">Sign up now!</router-link>
+            <br><router-link to="/">Demo</router-link>
           </p>
         </div>
       </div>
@@ -34,12 +34,27 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 
 export default {
   name: 'Login',
-  components: {
-
+  data()
+  {
+    return{
+      email:"",password:"",
+      user:"",team:""
+    }
+  },
+  methods: {
+    login()
+    {
+      axios.post('http://localhost:8080/', {email: this.email, password: this.password}).then(function (response) {
+        console.log(response.data)
+        this.user=response.data.user;
+        this.team=response.data.team;
+        console.log(response.data.team)
+      }.bind(this));
+    }
   }
 }
 </script>

@@ -9,6 +9,7 @@ public class User
     private String username;
     private String email;
     private String password;
+    private UUID teamId;
 
     public User(@JsonProperty("username") String username,@JsonProperty("email") String email, @JsonProperty("password") String password) {
         this.username = username;
@@ -38,6 +39,14 @@ public class User
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UUID getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(UUID teamId) {
+        this.teamId = teamId;
     }
 
     @Override
