@@ -19,7 +19,25 @@ public class Team
         teamId = UUID.randomUUID();
         teamMembers.add(new TeamMember(user,Level.LEADER));
         user.setTeamId(teamId);
-        toDos.add(new Card(UUID.randomUUID(),"Test","Klaidas Serelis","11/4/21",Impact.HIGH));
+        Card testCard = new Card(UUID.randomUUID(),"Test","Klaidas Serelis","11/4/21",Impact.HIGH);
+        List<String> keywords = new LinkedList<String>();
+        keywords.add("zoom");
+        keywords.add("Cake");
+        keywords.add("Wroom");
+        keywords.add("Caboom");
+
+        testCard.setKeywords(keywords);
+        toDos.add(testCard);
+        toDos.add(testCard);
+        toDos.add(testCard);
+
+        inProgress.add(testCard);
+        inProgress.add(testCard);
+
+        completed.add(testCard);
+        completed.add(testCard);
+        completed.add(testCard);
+        completed.add(testCard);
     }
 
     public int addMember()

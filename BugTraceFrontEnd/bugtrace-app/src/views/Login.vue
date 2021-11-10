@@ -41,19 +41,19 @@ export default {
   data()
   {
     return{
-      email:"",password:"",
-      user:"",team:""
+      email:"",password:""
     }
   },
   methods: {
     login()
     {
+      let self = this;
       axios.post('http://localhost:8080/', {email: this.email, password: this.password}).then(function (response) {
-        console.log(response.data)
-        this.user=response.data.user;
-        this.team=response.data.team;
-        console.log(response.data.team)
-      }.bind(this));
+        if(response.data!="")
+        {
+          self.$router.push({name:"MainPage",params:{username: response.data.username,password: response.data.password, email:response.data.email, teamId: response.data.teamId}});
+        }
+      });
     }
   }
 }
