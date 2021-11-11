@@ -8,4 +8,5 @@ public interface TeamDao
 {
     int addTeam(Team team);
     Team getTeam(UUID teamId);
+    int removeTeam(UUID teamId);
 }

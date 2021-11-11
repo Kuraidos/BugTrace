@@ -4,7 +4,6 @@ import com.BugTrace.BugTraceServer.model.Team;
 import com.BugTrace.BugTraceServer.service.MainPageDataService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("app")
@@ -19,7 +18,6 @@ public class MainPageDataController
     @PostMapping
     public Team getMainPageData(@RequestBody ObjectNode json)
     {
-        System.out.println("here");
         System.out.println(service.getMainPageData(json.get("email").asText(),json.get("password").asText(),json.get("teamId").asText()));
         return service.getMainPageData(json.get("email").asText(),json.get("password").asText(),json.get("teamId").asText());
     }

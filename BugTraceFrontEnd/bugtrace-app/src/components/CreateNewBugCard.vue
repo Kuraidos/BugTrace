@@ -1,41 +1,38 @@
 <template>
-  <div class="myBackground">
-        <div class="centerCol">
+  <div class="myBackground" @click.self="addedEvent()">
+        <div @click.self="addedEvent" class="centerCol">
           <div class="myModal">
             <div>
               <div class="formTitleDiv">
                 <h5 class="formTitle">Bug Card Creation</h5>
               </div>
-              <form>
+              <form @submit.prevent>
                 <div class="form-group myInputs">
-                  <label for="email">Name of a Bug</label>
-                  <input type="email" class="form-control" id="email"  placeholder="Crashing Zoom">
+                  <label for="title">Name of a Bug</label>
+                  <input v-model="title" type="text" class="form-control" id="title"  placeholder="Crashing Zoom">
                 </div>
                 <div class="form-group myInputs">
-                  <label for="password">Assign to </label>
-                  <input type="password" class="form-control" id="password" placeholder="None">
+                  <label for="assignTo">Assign to </label>
+                  <input v-model="assignTo" type="text" class="form-control" id="assignTo" placeholder="None">
                 </div>
                 <div class="form-group myInputs">
-                  <label for="password">Priority</label>
-                  <input type="password" class="form-control" id="password" placeholder="Set Priority">
+                  <label for="priority">Priority</label>
+                  <input v-model="priority" type="text" class="form-control" id="priority" placeholder="Set Priority">
                 </div>
                 <div class="form-group myInputs">
-                  <label for="password" class="myLabel">Add Keywords</label>
-                  <input type="password" class="form-control keywordInput" id="password" placeholder="Zoom">
+                  <label for="keywords" class="myLabel" >Add Keywords</label>
+                  <input v-model="tempKeyword" @keyup="addKeyword" type="text" class="form-control keywordInput" id="keywords" placeholder="Zoom">
                   <button type="button" class="btn btn-primary addButton">Add</button>
                   <div class="myPills">
-                    <span class="badge rounded-pill bg-danger myPill">Danger</span>
-                    <span class="badge rounded-pill bg-primary myPill">Primary</span>
-                    <span class="badge rounded-pill bg-primary myPill">Primary</span>
-                    <span class="badge rounded-pill bg-primary myPill">Primary</span>
-                    <span class="badge rounded-pill bg-primary myPill">Primary</span>
+                    <span class="badge rounded-pill bg-danger myPill">{{ priority }}</span>
+                    <span v-for="keyword in keywords " class="badge rounded-pill bg-primary myPill">{{ keyword }}</span>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Description</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" style="resize: none"></textarea>
+                  <label>Description</label>
+                  <textarea v-model="description" class="form-control" id="descriptio" rows="8" style="resize: none"></textarea>
                 </div>
-                <button class="btn btn-primary myBigButton">Create</button>
+                <button @click="create()" class="btn btn-primary myBigButton">Create</button>
               </form>
             </div>
           </div>
@@ -44,8 +41,44 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: "CreateNewBugCard"
+  name: "CreateNewBugCard",
+  data(){
+    return{
+        title:"",assignTo:"",priority:"",keywords:[],description:"",tempKeyword:""
+    }},
+  methods: {
+    create()
+    {
+      console.log(this.title)
+      console.log(this.assignTo)
+      console.log(this.priority)
+      console.log(this.keywords)
+      console.log(this.description)
+      let self = this;
+      axios.post('http://localhost:8080/app/create', {email: this.$route.params.email, password: this.$route.params.password,username: this.$route.params.username,teamId: this.$route.params.teamId,
+      title: this.title,assignTo:this.assignTo,priority:this.priority,keywords:this.keywords,description:this.description}).then(function (response) {
+      });
+      this.addedEvent()
+    },
+    addKeyword(e)
+    {
+      console.log(e)
+      if((e.key==='Enter' || e.key===',') && this.tempKeyword!="")
+      {
+          this.keywords.push(this.tempKeyword.replaceAll(",",""))
+          this.tempKeyword=""
+      }
+
+    }
+    ,
+    addedEvent()
+    {
+      this.$emit("added")
+    }
+  }
 }
 </script>
 

@@ -6,7 +6,7 @@
       <h6 class="card-subtitle mb-2 text-muted" style="font-size: 0.8em">Created by: {{ card.creator}}</h6>
       <div class="myPills">
         <span class="badge rounded-pill bg-danger myPill">{{ card.impact }}</span>
-        <span v-for="keyword in card.keywords" :key="keyword.keyword" class="badge rounded-pill bg-primary myPill">{{ keyword.keyword }}</span>
+        <span v-for="keyword in card.keywords" class="badge rounded-pill bg-primary myPill">{{ keyword }}</span>
       </div>
     </div>
   </div>

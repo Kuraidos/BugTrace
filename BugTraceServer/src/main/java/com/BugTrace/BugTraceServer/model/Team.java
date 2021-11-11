@@ -50,14 +50,28 @@ public class Team
         return 0;
     }
 
-    public int addTodo()
+    public int addTodo(Card card)
     {
-        return 0;
+        this.toDos.add(card);
+        return 1;
     }
 
-    public int assignTodo()
+    public int assignTodo(UUID cardId,String username)
     {
+        Card cardToMove =toDos.stream().filter(card -> card.getCardId().equals(cardId)).findAny().orElse(null);
+        if(cardToMove!=null)
+        {
+            cardToMove.setAssignedTo(username);
+            this.inProgress.add(cardToMove);
+            toDos.removeIf(card -> card.getCardId().equals(cardId));
+            return 1;
+        }
         return 0;
+    }
+    public int addInProgress(Card card)
+    {
+        this.inProgress.add(card);
+        return 1;
     }
 
     public int completeTodo()

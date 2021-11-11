@@ -1,20 +1,22 @@
 <template>
   <nav-bar></nav-bar>
+  <create-new-bug-card v-if="showCreateModal" style="z-index: 2" @added="closeCreateModal()">
+  </create-new-bug-card>
   <div class="container">
-  <div class="row">
+  <div class="row" >
     <div class="col-sm">
       <div class="myColDiv"><h5 class="myColName">To do</h5></div>
-      <div class="addBugCard"><h1 class="display-5 addSymbol">+</h1></div>
+      <div class="addBugCard" @click="this.showCreateModal=true"><h1 class="display-5 addSymbol">+</h1></div>
       <bug-card v-for="card in pageData.toDos" :key="card.cardId" :card="card"></bug-card>
     </div>
-    <div class="col-sm">
+    <div class="col-sm" >
       <div class="myColDiv"><h5 class="myColName">In Progress</h5></div>
-      <div class="addBugCard"><h1 class="display-5 addSymbol">+</h1></div>
+      <div class="addBugCard" @click="this.showCreateModal=true" ><h1 class="display-5 addSymbol">+</h1></div>
       <bug-card v-for="card in pageData.inProgress" :key="card.cardId" :card="card"></bug-card>
     </div>
     <div class="col-sm">
       <div class="myColDiv"><h5 class="myColName">Completed</h5></div>
-      <div class="addBugCard"><h1 class="display-5 addSymbol">+</h1></div>
+      <div class="addBugCard" @click="this.showCreateModal=true"><h1 class="display-5 addSymbol">+</h1></div>
       <bug-card v-for="card in pageData.completed" :key="card.cardId" :card="card"></bug-card>
     </div>
   </div>
@@ -43,7 +45,7 @@ export default {
   },
   data(){
     return{
-      pageData:{}
+      pageData:{},showCreateModal:false
     }},
   created()
   {
@@ -58,6 +60,11 @@ export default {
           axios.post("http://localhost:8080/app",{email:this.$route.params.email,password:this.$route.params.password,teamId:this.$route.params.teamId}).then(function (response){
             self.pageData=response.data
           })
+        },
+        closeCreateModal()
+        {
+          this.getData()
+          this.showCreateModal=false;
         }
       }
 

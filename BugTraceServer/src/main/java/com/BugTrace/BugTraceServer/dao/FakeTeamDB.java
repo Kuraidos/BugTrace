@@ -25,4 +25,12 @@ public class FakeTeamDB implements TeamDao{
         }
         return null;
     }
+
+    @Override
+    public int removeTeam(UUID teamId)
+    {
+        teams.removeIf(team -> team.getTeamId().equals(teamId));
+        return 1;
+    }
+
 }
