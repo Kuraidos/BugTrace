@@ -37,6 +37,8 @@ public class CreateCardService
             {
                 team.addTodo(card);
             }
+            teamDao.removeTeam(UUID.fromString(teamId));
+            teamDao.addTeam(team);
             return 1;
         }
         return 0;

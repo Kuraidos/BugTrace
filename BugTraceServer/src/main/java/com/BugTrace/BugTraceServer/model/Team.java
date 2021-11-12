@@ -20,7 +20,7 @@ public class Team
         teamMembers.add(new TeamMember(user,Level.LEADER));
         user.setTeamId(teamId);
         Card testCard = new Card(UUID.randomUUID(),"Test","Klaidas Serelis","11/4/21",Impact.HIGH);
-        List<String> keywords = new LinkedList<String>();
+        List<String> keywords = new LinkedList<>();
         keywords.add("zoom");
         keywords.add("Cake");
         keywords.add("Wroom");
@@ -28,16 +28,9 @@ public class Team
 
         testCard.setKeywords(keywords);
         toDos.add(testCard);
-        toDos.add(testCard);
-        toDos.add(testCard);
 
-        inProgress.add(testCard);
-        inProgress.add(testCard);
 
-        completed.add(testCard);
-        completed.add(testCard);
-        completed.add(testCard);
-        completed.add(testCard);
+
     }
 
     public int addMember()
@@ -56,14 +49,23 @@ public class Team
         return 1;
     }
 
-    public int assignTodo(UUID cardId,String username)
+    public int removeTodo(UUID cardId)
     {
-        Card cardToMove =toDos.stream().filter(card -> card.getCardId().equals(cardId)).findAny().orElse(null);
+        if(toDos.stream().filter(cardToFind -> cardToFind.getCardId().equals(cardId)).findAny().orElse(null)!=null)
+        {
+            toDos.removeIf(cardToRemove -> cardToRemove.getCardId().equals(cardId));
+            return 1;
+        }
+        return 0;
+    }
+
+    public int assignTodo(Card card)
+    {
+        Card cardToMove =toDos.stream().filter(cardToFind -> cardToFind.getCardId().equals(card.getCardId())).findAny().orElse(null);
         if(cardToMove!=null)
         {
-            cardToMove.setAssignedTo(username);
-            this.inProgress.add(cardToMove);
-            toDos.removeIf(card -> card.getCardId().equals(cardId));
+            this.inProgress.add(card);
+            toDos.removeIf(cardToRemove -> cardToRemove.getCardId().equals(card.getCardId()));
             return 1;
         }
         return 0;
@@ -79,10 +81,28 @@ public class Team
         return 0;
     }
 
-    public int completeInProgress()
+    public int completeInProgress(Card card)
     {
+        Card cardToMove =this.inProgress.stream().filter(cardToFind -> cardToFind.getCardId().equals(card.getCardId())).findAny().orElse(null);
+        if(cardToMove!=null)
+        {
+            this.completed.add(card);
+            inProgress.removeIf(cardToRemove -> cardToRemove.getCardId().equals(card.getCardId()));
+            return 1;
+        }
         return 0;
     }
+
+    public int removeInProgress(UUID cardId)
+    {
+        if(inProgress.stream().filter(cardToFind -> cardToFind.getCardId().equals(cardId)).findAny().orElse(null)!=null)
+        {
+            inProgress.removeIf(cardToRemove -> cardToRemove.getCardId().equals(cardId));
+            return 1;
+        }
+        return 0;
+    }
+
 
     public String getName() {
         return name;

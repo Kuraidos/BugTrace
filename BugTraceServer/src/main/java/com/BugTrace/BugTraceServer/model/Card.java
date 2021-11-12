@@ -45,7 +45,7 @@ public class Card
         return dateAssigned;
     }
 
-    public String getDataCompleted() {
+    public String getDateCompleted() {
         return dateCompleted;
     }
 
@@ -77,8 +77,8 @@ public class Card
         this.dateAssigned = dateAssigned;
     }
 
-    public void setDataCompleted(String dataCompleted) {
-        this.dateCompleted = dataCompleted;
+    public void setDateCompleted(String dateCompleted) {
+        this.dateCompleted = dateCompleted;
     }
 
     public void setAssignedTo(String assignedTo) {

@@ -47,7 +47,7 @@ export default {
   name: "CreateNewBugCard",
   data(){
     return{
-        title:"",assignTo:"",priority:"",keywords:[],description:"",tempKeyword:""
+        title:"",assignTo:"",priority:"",keywords:[],description:"",tempKeyword:"",type:""
     }},
   methods: {
     create()
@@ -77,6 +77,17 @@ export default {
     addedEvent()
     {
       this.$emit("added")
+    },
+    whatType()
+    {
+      if(this.assignTo)
+      {
+        this.type="InProgress"
+      }
+      else
+      {
+        this.type="ToDo"
+      }
     }
   }
 }

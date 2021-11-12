@@ -20,6 +20,7 @@ public class MainPageDataService
     {
         if(verify.verifyExists(email, password) && verify.verifyPartOfTeam(email,teamId))
         {
+
             return teamDao.getTeam(UUID.fromString(teamId));
         }
         return null;
