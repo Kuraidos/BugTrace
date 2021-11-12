@@ -1,23 +1,23 @@
 <template>
   <nav-bar></nav-bar>
-  <create-new-bug-card v-if="showCreateModal" style="z-index: 2" @added="closeCreateModal()">
-  </create-new-bug-card>
+  <create-new-bug-card v-if="showCreateModal" style="z-index: 2" @added="closeCreateModal()"></create-new-bug-card>
+  <modal-click-on-card @close='tempCard=""' :card="tempCard" v-if="tempCard" style="z-index: 2"></modal-click-on-card>
   <div class="container">
   <div class="row" >
     <div class="col-sm">
       <div class="myColDiv"><h5 class="myColName">To do</h5></div>
       <div class="addBugCard" @click="this.showCreateModal=true"><h1 class="display-5 addSymbol">+</h1></div>
-      <bug-card v-for="card in pageData.toDos" :key="card.cardId" :card="card"></bug-card>
+      <bug-card  v-for="card in pageData.toDos" :key="card.cardId" :card="card" @click="openCard(card)"></bug-card>
     </div>
     <div class="col-sm" >
       <div class="myColDiv"><h5 class="myColName">In Progress</h5></div>
       <div class="addBugCard" @click="this.showCreateModal=true" ><h1 class="display-5 addSymbol">+</h1></div>
-      <bug-card v-for="card in pageData.inProgress" :key="card.cardId" :card="card"></bug-card>
+      <bug-card v-for="card in pageData.inProgress" :key="card.cardId" :card="card" @click="openCard(card)"></bug-card>
     </div>
     <div class="col-sm">
       <div class="myColDiv"><h5 class="myColName">Completed</h5></div>
       <div class="addBugCard" @click="this.showCreateModal=true"><h1 class="display-5 addSymbol">+</h1></div>
-      <bug-card v-for="card in pageData.completed" :key="card.cardId" :card="card"></bug-card>
+      <bug-card v-for="card in pageData.completed" :key="card.cardId" :card="card" @click="openCard(card)"></bug-card>
     </div>
   </div>
   </div>
@@ -41,11 +41,11 @@ export default {
      },
   updated()
   {
-    console.log(this.pageData)
+
   },
   data(){
     return{
-      pageData:{},showCreateModal:false
+      pageData:{},showCreateModal:false,tempCard:""
     }},
   created()
   {
@@ -65,6 +65,10 @@ export default {
         {
           this.getData()
           this.showCreateModal=false;
+        },
+        openCard(card)
+        {
+          this.tempCard=card;
         }
       }
 

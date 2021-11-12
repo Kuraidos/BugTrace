@@ -10,7 +10,7 @@ public class Card
     private String creator;
     private String dateCreated;
     private String dateAssigned="";
-    private String dataCompleted="";
+    private String dateCompleted="";
     private String assignedTo="";
     private String completedBy="";
     private String description="";
@@ -46,7 +46,7 @@ public class Card
     }
 
     public String getDataCompleted() {
-        return dataCompleted;
+        return dateCompleted;
     }
 
     public String getAssignedTo() {
@@ -78,7 +78,7 @@ public class Card
     }
 
     public void setDataCompleted(String dataCompleted) {
-        this.dataCompleted = dataCompleted;
+        this.dateCompleted = dataCompleted;
     }
 
     public void setAssignedTo(String assignedTo) {
