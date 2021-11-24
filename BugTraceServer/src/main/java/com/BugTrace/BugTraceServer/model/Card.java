@@ -1,10 +1,14 @@
 package com.BugTrace.BugTraceServer.model;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 import java.util.UUID;
-
+@Entity(name="card")
 public class Card
 {
+    @Id
     private UUID cardId;
     private String title;
     private String creator;
@@ -15,7 +19,9 @@ public class Card
     private String completedBy="";
     private String description="";
     private Impact impact;
+    @ElementCollection
     private List<String> keywords;
+    private TypeOfCard typeOfCard;
 
     public Card(UUID cardId, String title, String creator, String dateCreated, Impact impact) {
         this.cardId = cardId;
@@ -23,6 +29,10 @@ public class Card
         this.creator = creator;
         this.dateCreated = dateCreated;
         this.impact = impact;
+    }
+
+    public Card() {
+
     }
 
     public UUID getCardId() {
@@ -99,5 +109,25 @@ public class Card
 
     public void setKeywords(List<String> keywords) {
         this.keywords = keywords;
+    }
+
+    public TypeOfCard getTypeOfCard() {
+        return typeOfCard;
+    }
+
+    public void setTypeOfCard(TypeOfCard typeOfCard) {
+        this.typeOfCard = typeOfCard;
+    }
+
+    public void setCardId(UUID cardId) {
+        this.cardId = cardId;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }

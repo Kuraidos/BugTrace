@@ -1,6 +1,7 @@
 package com.BugTrace.BugTraceServer.service;
 
 import com.BugTrace.BugTraceServer.dao.UserDao;
+import com.BugTrace.BugTraceServer.dao.UserRepository;
 import com.BugTrace.BugTraceServer.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,16 +10,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserLoginService
 {
-    private final UserDao userDao;
+    private final UserRepository userRepository;
     @Autowired
-    public UserLoginService(@Qualifier("FakeDB") UserDao userDao) {this.userDao=userDao;}
+    public UserLoginService(UserRepository userRepository) {this.userRepository=userRepository;}
 
     public User Login(String email, String password)
     {
-        User user=userDao.getUser(email,password);
+        User user=userRepository.findById(email).orElse(null);
         if(user!=null)
         {
-            return user;
+            if(user.getPassword().equals(password))
+            {
+                return user;
+            }
         }
         return null;
     }

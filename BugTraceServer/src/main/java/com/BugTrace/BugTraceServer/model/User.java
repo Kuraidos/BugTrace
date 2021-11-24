@@ -2,11 +2,15 @@ package com.BugTrace.BugTraceServer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.UUID;
 
+@Entity(name="user_data")
 public class User
 {
     private String username;
+    @Id
     private String email;
     private String password;
     private UUID teamId;
@@ -15,6 +19,10 @@ public class User
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public User() {
+
     }
 
     public String getUsername() {
@@ -55,6 +63,7 @@ public class User
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", teamId=" + teamId +
                 '}';
     }
 }

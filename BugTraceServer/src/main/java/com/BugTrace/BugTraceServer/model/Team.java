@@ -1,35 +1,30 @@
 package com.BugTrace.BugTraceServer.model;
 
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
+@Entity(name = "team")
 public class Team
 {
     private String name;
+    @Id
     private UUID teamId;
+    @OneToMany(cascade= CascadeType.PERSIST)
     private List<TeamMember> teamMembers = new LinkedList<>();
-    private List<Card> toDos = new LinkedList<>();
-    private List<Card> inProgress = new LinkedList<>();
-    private List<Card> completed = new LinkedList<>();
+    @OneToMany(cascade=CascadeType.PERSIST)
+    private List<Card> cards = new LinkedList<>();
 
     public Team(String name, User user)
     {
         this.name = name;
-        teamId = UUID.randomUUID();
-        teamMembers.add(new TeamMember(user,Level.LEADER));
-        user.setTeamId(teamId);
-        Card testCard = new Card(UUID.randomUUID(),"Test","Klaidas Serelis","11/4/21",Impact.HIGH);
-        List<String> keywords = new LinkedList<>();
-        keywords.add("zoom");
-        keywords.add("Cake");
-        keywords.add("Wroom");
-        keywords.add("Caboom");
+        this.teamId = UUID.randomUUID(); // This makes no sense
+        //teamMembers.add(new TeamMember(user,Level.LEADER));
+        //user.setTeamId(teamId);
+    }
 
-        testCard.setKeywords(keywords);
-        toDos.add(testCard);
-
-
+    public Team() {
 
     }
 
@@ -45,15 +40,16 @@ public class Team
 
     public int addTodo(Card card)
     {
-        this.toDos.add(card);
+        card.setTypeOfCard(TypeOfCard.TODO);
+        cards.add(card);
         return 1;
     }
 
     public int removeTodo(UUID cardId)
     {
-        if(toDos.stream().filter(cardToFind -> cardToFind.getCardId().equals(cardId)).findAny().orElse(null)!=null)
+        if(cards.stream().filter(cardToFind -> cardToFind.getCardId().equals(cardId)).findAny().orElse(null)!=null)
         {
-            toDos.removeIf(cardToRemove -> cardToRemove.getCardId().equals(cardId));
+            cards.removeIf(cardToRemove -> cardToRemove.getCardId().equals(cardId));
             return 1;
         }
         return 0;
@@ -61,18 +57,20 @@ public class Team
 
     public int assignTodo(Card card)
     {
-        Card cardToMove =toDos.stream().filter(cardToFind -> cardToFind.getCardId().equals(card.getCardId())).findAny().orElse(null);
+        Card cardToMove =cards.stream().filter(cardToFind -> cardToFind.getCardId().equals(card.getCardId())).findAny().orElse(null);
         if(cardToMove!=null)
         {
-            this.inProgress.add(card);
-            toDos.removeIf(cardToRemove -> cardToRemove.getCardId().equals(card.getCardId()));
+            card.setTypeOfCard(TypeOfCard.INPROGRESS);
+            cards.removeIf(cardToRemove -> cardToRemove.getCardId().equals(card.getCardId()));
+            cards.add(cardToMove);
             return 1;
         }
         return 0;
     }
     public int addInProgress(Card card)
     {
-        this.inProgress.add(card);
+        card.setTypeOfCard(TypeOfCard.INPROGRESS);
+        this.cards.add(card);
         return 1;
     }
 
@@ -83,11 +81,11 @@ public class Team
 
     public int completeInProgress(Card card)
     {
-        Card cardToMove =this.inProgress.stream().filter(cardToFind -> cardToFind.getCardId().equals(card.getCardId())).findAny().orElse(null);
+        Card cardToMove =this.cards.stream().filter(cardToFind -> cardToFind.getCardId().equals(card.getCardId())).findAny().orElse(null);
         if(cardToMove!=null)
         {
-            this.completed.add(card);
-            inProgress.removeIf(cardToRemove -> cardToRemove.getCardId().equals(card.getCardId()));
+            this.cards.add(card);
+            cards.removeIf(cardToRemove -> cardToRemove.getCardId().equals(card.getCardId()));
             return 1;
         }
         return 0;
@@ -95,9 +93,9 @@ public class Team
 
     public int removeInProgress(UUID cardId)
     {
-        if(inProgress.stream().filter(cardToFind -> cardToFind.getCardId().equals(cardId)).findAny().orElse(null)!=null)
+        if(cards.stream().filter(cardToFind -> cardToFind.getCardId().equals(cardId)).findAny().orElse(null)!=null)
         {
-            inProgress.removeIf(cardToRemove -> cardToRemove.getCardId().equals(cardId));
+            cards.removeIf(cardToRemove -> cardToRemove.getCardId().equals(cardId));
             return 1;
         }
         return 0;
@@ -112,20 +110,21 @@ public class Team
         return teamId;
     }
 
+
     public List<TeamMember> getTeamMembers() {
         return teamMembers;
     }
 
     public List<Card> getToDos() {
-        return toDos;
+        return cards;
     }
 
     public List<Card> getInProgress() {
-        return inProgress;
+        return cards;
     }
 
     public List<Card> getCompleted() {
-        return completed;
+        return cards;
     }
 
     @Override
@@ -134,9 +133,27 @@ public class Team
                 "name='" + name + '\'' +
                 ", teamId=" + teamId +
                 ", teamMembers=" + teamMembers +
-                ", toDos=" + toDos +
-                ", inProgress=" + inProgress +
-                ", completed=" + completed +
+                ", cards=" + cards +
                 '}';
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTeamId(UUID teamId) {
+        this.teamId = teamId;
+    }
+
+    public void setTeamMembers(List<TeamMember> teamMembers) {
+        this.teamMembers = teamMembers;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 }

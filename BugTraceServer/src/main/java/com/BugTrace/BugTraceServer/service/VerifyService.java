@@ -2,6 +2,7 @@ package com.BugTrace.BugTraceServer.service;
 
 import com.BugTrace.BugTraceServer.dao.TeamDao;
 import com.BugTrace.BugTraceServer.dao.UserDao;
+import com.BugTrace.BugTraceServer.dao.UserRepository;
 import com.BugTrace.BugTraceServer.model.Team;
 import com.BugTrace.BugTraceServer.model.TeamMember;
 import com.BugTrace.BugTraceServer.model.User;
@@ -14,18 +15,20 @@ import java.util.UUID;
 @Service
 public class VerifyService
 {
-
+    private final UserRepository userRepository;
     private final TeamDao teamDao;
-    private final UserDao userDao;
     @Autowired
-    public VerifyService(@Qualifier("FakeTeamDB") TeamDao teamDao, @Qualifier("FakeDB") UserDao userDao){this.teamDao=teamDao;this.userDao=userDao;}
+    public VerifyService(@Qualifier("FakeTeamDB") TeamDao teamDao,UserRepository userRepository){this.teamDao=teamDao;this.userRepository=userRepository;}
     //Need to check if user exists, then if it is part of the team
     public boolean verifyExists(String email, String password)
     {
-        User user =userDao.getUser(email,password);
+        User user = userRepository.findById(email).orElse(null);
         if(user!=null)
         {
-            return true;
+            if(user.getPassword().equals(password))
+            {
+                return true;
+            }
         }
         return false;
     }
@@ -36,7 +39,7 @@ public class VerifyService
         if(searchIn==null) {return false;}
         for (TeamMember member:searchIn.getTeamMembers())
         {
-            if(member.getUser().getEmail().equals(email))
+            if(member.getEmail().equals(email))
             {
                 return true;
             }
