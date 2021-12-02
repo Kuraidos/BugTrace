@@ -7,22 +7,19 @@ on:
     branches: [ main ]
 
 jobs:
-# Label of the container job
   container-job:
-    # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
-    # Docker Hub image that `container-job` executes in
-    container: node:10.18-jessie
-    #copy from https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
-    # Service containers to run with `container-job`
     services:
       # Label used to access the service container
       postgres:
         # Docker Hub image
-        image: postgres
+        image: postgres:alpine
         # Provide the password for postgres
         env:
           POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: bugtrace
+        ports:
+          - 5432:5432
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
