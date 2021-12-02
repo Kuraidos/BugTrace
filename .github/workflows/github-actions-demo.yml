@@ -32,9 +32,10 @@ jobs:
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
           run: postgres -V
-      - run: psql -U postgres
-      - run: CREATE DATABASE bugtrace;
-      - run: \l
+      - run: |
+          psql -U postgres
+          CREATE DATABASE bugtrace;
+          \l
 
 
         
