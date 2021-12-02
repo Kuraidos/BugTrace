@@ -24,6 +24,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
       - run: postgres -V
+      - run: psql -U postgres
+      - run: CREATE DATABASE bugtrace;
 
 
         
