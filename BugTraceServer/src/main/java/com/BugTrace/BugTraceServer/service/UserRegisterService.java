@@ -37,16 +37,22 @@ public class UserRegisterService
     }
     public int addUser(User user)
     {
-        testCard();
-        testTeamMember();
-        testTeam();
-        Team newTeam = new Team(user.getUsername()+"'s Team",user);
-        teamRepository.save(newTeam);
+
         try
         {
+            Team newTeam = new Team(user.getUsername()+"'s Team",user);
+            List<TeamMember> teamMemberList = newTeam.getTeamMembers();
+            teamMemberList.add(new TeamMember(user,Level.MANAGER));
+            newTeam.setTeamMembers(teamMemberList);
+            teamMemberRepository.saveAll(newTeam.getTeamMembers());
+            cardRepository.saveAll(newTeam.getInProgress());
+            cardRepository.saveAll(newTeam.getCompleted());
+            cardRepository.saveAll(newTeam.getToDos());
+            teamRepository.save(newTeam);
+
             user.setTeamId(newTeam.getTeamId());
             userRepository.save(user);
-            System.out.println(userRepository.getById(user.getEmail()));
+
             return 1;
         }
         catch (Exception e)
@@ -97,8 +103,9 @@ public class UserRegisterService
         team.setCards(cardList);
 
         teamMemberRepository.saveAll(team.getTeamMembers());
-        cardRepository.saveAll(team.getCards());
+        cardRepository.saveAll(team.getInProgress());
         teamRepository.save(team);
+        System.out.println(teamRepository.findById(team.getTeamId()));
         System.out.println("Team Working");
     }
 

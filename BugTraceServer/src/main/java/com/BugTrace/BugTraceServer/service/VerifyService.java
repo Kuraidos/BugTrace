@@ -1,6 +1,7 @@
 package com.BugTrace.BugTraceServer.service;
 
 import com.BugTrace.BugTraceServer.dao.TeamDao;
+import com.BugTrace.BugTraceServer.dao.TeamRepository;
 import com.BugTrace.BugTraceServer.dao.UserDao;
 import com.BugTrace.BugTraceServer.dao.UserRepository;
 import com.BugTrace.BugTraceServer.model.Team;
@@ -16,9 +17,9 @@ import java.util.UUID;
 public class VerifyService
 {
     private final UserRepository userRepository;
-    private final TeamDao teamDao;
+    private final TeamRepository teamRepository;
     @Autowired
-    public VerifyService(@Qualifier("FakeTeamDB") TeamDao teamDao,UserRepository userRepository){this.teamDao=teamDao;this.userRepository=userRepository;}
+    public VerifyService(TeamRepository teamRepository,UserRepository userRepository){this.teamRepository=teamRepository;this.userRepository=userRepository;}
     //Need to check if user exists, then if it is part of the team
     public boolean verifyExists(String email, String password)
     {
@@ -35,7 +36,7 @@ public class VerifyService
 
     public boolean verifyPartOfTeam(String email, String teamId)
     {
-        Team searchIn = teamDao.getTeam(UUID.fromString(teamId));
+        Team searchIn = teamRepository.findById(UUID.fromString(teamId)).orElse(null);
         if(searchIn==null) {return false;}
         for (TeamMember member:searchIn.getTeamMembers())
         {

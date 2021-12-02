@@ -51,6 +51,7 @@ export default {
   {
     this.user=this.$route.params
     this.getData()
+    this.interval = setInterval(() => this.getData(), 5000);
   },
   methods:
       {

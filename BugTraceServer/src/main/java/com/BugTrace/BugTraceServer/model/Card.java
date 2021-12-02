@@ -130,4 +130,22 @@ public class Card
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "cardId=" + cardId +
+                ", title='" + title + '\'' +
+                ", creator='" + creator + '\'' +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", dateAssigned='" + dateAssigned + '\'' +
+                ", dateCompleted='" + dateCompleted + '\'' +
+                ", assignedTo='" + assignedTo + '\'' +
+                ", completedBy='" + completedBy + '\'' +
+                ", description='" + description + '\'' +
+                ", impact=" + impact +
+                ", keywords=" + keywords +
+                ", typeOfCard=" + typeOfCard +
+                '}';
+    }
 }

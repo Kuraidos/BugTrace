@@ -57,5 +57,13 @@ public class TeamMember
         this.level = level;
     }
 
-
+    @Override
+    public String toString() {
+        return "TeamMember{" +
+                "memberId=" + memberId +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                '}';
+    }
 }
