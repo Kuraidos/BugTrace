@@ -3,7 +3,7 @@ on: [push]
 jobs:
   Create_PostgresSql_Server:
     runs-on: ubuntu-latest
-    container: node:10.18-jessie
+    container: postgres:alpine
     # Service containers to run with `container-job`
     services:
       # Label used to access the service container
