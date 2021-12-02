@@ -38,6 +38,8 @@ jobs:
       run:
         working-directory: BugTraceServer
     steps:
+    - run: pwd
+    - run: ls
     - uses: actions/checkout@v2
     - name: Set up JDK 17
       uses: actions/setup-java@v2
