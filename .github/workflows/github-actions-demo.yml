@@ -26,9 +26,17 @@ jobs:
        
 
     steps:
-      # Downloads a copy of the code in your repository before running CI tests
+      - name: Install PostgreSQL client
+        run: |
+          apt-get update
+          apt-get install --yes postgresql-client
+          
       - name: Check out repository code
         uses: actions/checkout@v2
+      - name: Query database
+        run: psql -h postgres -d bugtrace -U postgres -c 'SELECT 1;'
+        env:
+          PGPASSWORD: postgres
       - run: postgres -V
 
 
