@@ -11,7 +11,7 @@ on:
 
 
 jobs:
-  Create_PostgresSql_Server:
+  container-job:
     runs-on: ubuntu-latest
     container: postgres:alpine
     # Service containers to run with `container-job`
