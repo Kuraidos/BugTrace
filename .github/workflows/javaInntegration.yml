@@ -40,8 +40,9 @@ jobs:
       run:
         working-directory: BugTraceServer
     steps:
-    - run:  postgres -V
     - uses: actions/checkout@v2
+    - run:  postgres -V
+    - run: exit
     - name: Set up JDK 17
       uses: actions/setup-java@v2
       with:
