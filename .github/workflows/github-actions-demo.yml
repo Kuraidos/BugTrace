@@ -3,7 +3,7 @@ on: [push]
 jobs:
   Create_PostgresSql_Server:
     runs-on: ubuntu-latest
-    container: node:10.18-jessie
+    container: testDb
     # Service containers to run with `container-job`
     services:
       # Label used to access the service container
@@ -23,7 +23,6 @@ jobs:
       # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
         uses: actions/checkout@v2
-        
       - name: Connect to PostgreSQL
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.
