@@ -12,7 +12,27 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest       
+    runs-on: ubuntu-latest
+    #Create DB
+    container: postgres:alpine
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+          POSTGRES_DB: bugtrace
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
   
     defaults:
       run:
