@@ -39,8 +39,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Connect to PostgreSQL
-          # Runs a script that creates a PostgreSQL table, populates
-          # the table with data, and then retrieves the data.
       env:
            # The hostname used to communicate with the PostgreSQL service container
           POSTGRES_HOST: postgres
@@ -48,9 +46,6 @@ jobs:
           POSTGRES_PORT: 5432
       run: 
           postgres -V
-          psql -U postgres
-          CREATE DATABASE bugtrace;
-          \l
           
     - name: Set up JDK 17
       uses: actions/setup-java@v2
