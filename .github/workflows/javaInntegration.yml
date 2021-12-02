@@ -15,15 +15,12 @@ jobs:
   runner-job:
     # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
-    # Docker Hub image that `container-job` executes in
-    container: postgres:alpine
 
-    # Service containers to run with `container-job`
     services:
       # Label used to access the service container
       postgres:
         # Docker Hub image
-        image: postgres
+        image: postgres:alpine
         # Provide the password for postgres
         env:
           POSTGRES_PASSWORD: postgres
