@@ -11,21 +11,25 @@ jobs:
         # Docker Hub image
         image: postgres
         # Provide the password for postgres
+      
         env:
           POSTGRES_PASSWORD: postgres
         # Set health checks to wait until postgres has started
+          POSTGRES_DB: bugtrace
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+       
+
     steps:
       # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
         uses: actions/checkout@v2
       - run: postgres -V
-      - run: CREATE DATABASE bugtrace;
-      - run: \l
 
 
         
