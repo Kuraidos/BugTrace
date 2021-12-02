@@ -8,14 +8,11 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
-
 jobs:
   # Label of the container job
   runner-job:
     # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
-
     services:
       # Label used to access the service container
       postgres:
