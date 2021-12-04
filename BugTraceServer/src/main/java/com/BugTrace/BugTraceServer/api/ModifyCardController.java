@@ -22,7 +22,8 @@ public class ModifyCardController
     @PostMapping
     public int modifyCard(@RequestBody ObjectNode json)
     {
-        System.out.println(json);
+        System.out.println("here");
+        System.out.println(json.toString());
         List<String> keywords = new LinkedList<>();
         json.get("keywords").forEach(keyword -> keywords.add(keyword.asText()));
         return service.modifyCard(json.get("email").asText(),json.get("password").asText(),json.get("teamId").asText(),json.get("username").asText(),
