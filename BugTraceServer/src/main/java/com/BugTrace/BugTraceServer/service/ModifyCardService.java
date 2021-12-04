@@ -7,6 +7,7 @@ import com.BugTrace.BugTraceServer.dao.TeamRepository;
 import com.BugTrace.BugTraceServer.model.Card;
 import com.BugTrace.BugTraceServer.model.Impact;
 import com.BugTrace.BugTraceServer.model.Team;
+import com.BugTrace.BugTraceServer.model.TypeOfCard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -31,50 +32,43 @@ public class ModifyCardService
         if(service.verifyExists(email,password) && service.verifyPartOfTeam(email,teamId))
         {
             Team team = teamRepository.findById(UUID.fromString(teamId)).orElse(null);
-            Card card = new Card(UUID.fromString(cardId),title,username,java.time.LocalDate.now().toString(), Impact.valueOf(priority));
-            card.setKeywords(keywords);
-            card.setDescription(description);
-            Card tempCard =team.getToDos().stream().filter(cardToFind -> cardToFind.getCardId().equals(card.getCardId())).findAny().orElse(null);
+            Card tempCard =team.getToDos().stream().filter(cardToFind -> cardToFind.getCardId().equals(UUID.fromString(cardId))).findAny().orElse(team.getInProgress().stream().filter(cardToFind -> cardToFind.getCardId().equals(UUID.fromString(cardId))).findAny().orElse(null));
             if(tempCard!=null)
             {
-                if(!assignTo.equals(""))
+                Card card = new Card(UUID.fromString(cardId),title,username,tempCard.getDateCreated(), Impact.valueOf(priority));
+                card.setKeywords(keywords);
+                card.setDescription(description);
+                card.setAssignedTo(assignTo);
+                card.setCompletedBy(completedBy);
+                card.setCreator(tempCard.getCreator());
+                card.setDateCreated(tempCard.getDateCreated());
+                team.removeCard(UUID.fromString(cardId));
+                if(assignTo.equals("") && completedBy.equals(""))
                 {
-                    card.setAssignedTo(assignTo);
-                    card.setDateAssigned(java.time.LocalDate.now().toString());
-                    team.assignTodo(card);
-                }
-                else
-                {
-                    team.removeCard(card.getCardId());
+                    card.setDateAssigned("");
                     team.addTodo(card);
                 }
-                cardRepository.saveAll(team.getInProgress());
-                cardRepository.saveAll(team.getCompleted());
-                cardRepository.saveAll(team.getToDos());
-                teamMemberRepository.saveAll(team.getTeamMembers());
-                teamRepository.save(team);
-                return 1;
-            }
-            tempCard=team.getInProgress().stream().filter(cardToFind -> cardToFind.getCardId().equals(card.getCardId())).findAny().orElse(null);
-            if(tempCard!=null)
-            {
-                card.setDateAssigned(tempCard.getDateAssigned());
-                card.setAssignedTo(tempCard.getAssignedTo());
-                if(!completedBy.equals(""))
+                else if(completedBy.equals("") && !assignTo.equals(""))
+                {
+                    card.setDateAssigned(java.time.LocalDate.now().toString());
+                    card.setAssignedTo(assignTo);
+                    team.addInProgress(card);
+                }
+                else if(!completedBy.equals(""))
                 {
                     card.setCompletedBy(completedBy);
                     card.setDateCompleted(java.time.LocalDate.now().toString());
-                    team.completeInProgress(card);
+                    card.setTypeOfCard(TypeOfCard.COMPLETED);
+                    team.addCard(card);
                 }
                 else
                 {
-                    team.removeInProgress(card.getCardId());
-                    team.addInProgress(card);
+                    team.addCard(card);
                 }
-                teamMemberRepository.saveAll(team.getTeamMembers());
                 cardRepository.saveAll(team.getInProgress());
                 cardRepository.saveAll(team.getCompleted());
                 cardRepository.saveAll(team.getToDos());
+                teamMemberRepository.saveAll(team.getTeamMembers());
                 teamRepository.save(team);
                 return 1;
             }

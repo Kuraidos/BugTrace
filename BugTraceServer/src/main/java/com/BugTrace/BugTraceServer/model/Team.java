@@ -105,6 +105,8 @@ public class Team
         if(cardToComplete!=null && cardToComplete.getTypeOfCard().equals(TypeOfCard.TODO))
         {
             cards.removeIf(cardToRemove -> cardToRemove.getCardId().equals(cardId));
+            cardToComplete.setCompletedBy(cardToComplete.getAssignedTo());
+            cardToComplete.setDateCompleted(java.time.LocalDate.now().toString());
             cards.add(cardToComplete);
             return 1;
         }

@@ -1,7 +1,8 @@
 <template>
 
   <div class="myBackground" @click.self="close">
-    <div class="container" >
+    <CreateNewBugCard @added="closeEverything" :card="card" v-if="modify"></CreateNewBugCard>
+    <div class="container" v-if="!modify">
     <div class="row">
       <div @click.self="close" class="col-3"></div>
       <div class="col-6">
@@ -34,9 +35,9 @@
               Action
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Complete</a>
-              <a class="dropdown-item" href="#">Edit</a>
-              <a class="dropdown-item" href="#">Remove</a>
+              <a class="dropdown-item" @click="completeCard()" >Complete</a>
+              <a class="dropdown-item" @click="modifyCard()" >Edit</a>
+              <a class="dropdown-item" @click="removeCard()">Remove</a>
             </div>
           </div>
         </div>
@@ -50,9 +51,16 @@
 </template>
 
 <script>
+import axios from "axios";
+import CreateNewBugCard from "@/components/CreateNewBugCard";
+
 export default {
   name: "ModalClickOnCard",
+  components: {CreateNewBugCard},
   props:["card"],
+  data(){return{
+   modify:false
+  }},
   created() {
 
   },
@@ -60,6 +68,42 @@ export default {
     close()
     {
       this.$emit("close")
+    },
+    completeCard()
+    {
+      let self = this;
+      axios.post('http://localhost:8080/app/modify', {
+        email: this.$route.params.email,
+        password: this.$route.params.password,
+        username: this.$route.params.username,
+        teamId: this.$route.params.teamId,
+        title: this.card.title,
+        assignTo:this.card.assignedTo,
+        priority:this.card.impact,
+        keywords:this.card.keywords,
+        description:this.card.description,
+        cardId: this.card.cardId,
+        completedBy:this.$route.params.username}).then(function (response) {
+      });
+    },
+    removeCard()
+    {
+      let self = this;
+      axios.post('http://localhost:8080/app/remove', {
+        email: this.$route.params.email,
+        password: this.$route.params.password,
+        teamId: this.$route.params.teamId,
+        cardId: this.card.cardId}).then(function (response) {
+      });
+    },
+    modifyCard()
+    {
+      this.modify=true;
+    },
+    closeEverything()
+    {
+      this.modify=false;
+      this.close();
     }
   }
 }
