@@ -20,22 +20,8 @@ public class Team
     public Team(String name, User user)
     {
         this.name = name;
-        this.teamId = UUID.randomUUID(); // This makes no sense
+        this.teamId = UUID.randomUUID();
 
-        Card card1 = new Card(UUID.randomUUID(),"test","Kuraido","Today",Impact.HIGH);
-        card1.setTypeOfCard(TypeOfCard.COMPLETED);
-        Card card2 = new Card(UUID.randomUUID(),"test2","Kuraido2","Today2",Impact.HIGH);
-        card2.setTypeOfCard(TypeOfCard.COMPLETED);
-
-        List<String> keywords= new LinkedList<>();
-        keywords.add("Yes");
-        keywords.add("No");
-        keywords.add("Maybe");
-
-        card1.setKeywords(keywords);
-
-        cards.add(card1);
-        cards.add(card2);
     }
 
     public Team() {

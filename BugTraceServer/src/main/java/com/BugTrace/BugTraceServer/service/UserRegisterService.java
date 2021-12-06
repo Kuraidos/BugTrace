@@ -16,18 +16,15 @@ public class UserRegisterService
 
     private final VerifyService service;
     private final UserRepository userRepository;
-    private final TestTeamRepository testTeamRepository;
-    private final TestItemRepository testItemRepository;
     private final CardRepository cardRepository;
     private final TeamRepository teamRepository;
     private final TeamMemberRepository teamMemberRepository;
 
     @Autowired
-    public UserRegisterService(TestTeamRepository testTeamRepository, TestItemRepository testItemRepository,UserRepository userRepository,VerifyService service, CardRepository cardRepository
+    public UserRegisterService(UserRepository userRepository,VerifyService service, CardRepository cardRepository
     ,TeamRepository teamRepository,TeamMemberRepository teamMemberRepository)
     {
-        this.testTeamRepository=testTeamRepository;
-        this.testItemRepository=testItemRepository;
+
         this.userRepository=userRepository;
         this.service=service;
         this.cardRepository=cardRepository;
@@ -61,29 +58,6 @@ public class UserRegisterService
         }
     }
 
-    public void doThis(User user)
-    {
-        TestTeam testTeam = new TestTeam("name",user);
-
-        TestItem testItem = new TestItem();
-        testItem.setItemId(UUID.randomUUID());
-        testItem.setName("Why");
-        testItemRepository.save(testItem);
-
-        TestItem testItem2 = new TestItem();
-        testItem2.setItemId(UUID.randomUUID());
-        testItem2.setName("Why2");
-        testItemRepository.save(testItem2);
-
-
-        List<TestItem> items = testTeam.getTestItems();
-        items.add(testItem);
-        items.add(testItem2);
-        testTeam.setTestItems(items);
-        testTeamRepository.save(testTeam);
-
-        System.out.println(testTeamRepository.getById(testTeam.getTeamId()));
-    }
 
 
     public void testTeam()
