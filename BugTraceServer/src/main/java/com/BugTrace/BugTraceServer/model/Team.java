@@ -21,7 +21,8 @@ public class Team
     {
         this.name = name;
         this.teamId = UUID.randomUUID();
-
+        user.setTeamId(this.teamId);
+        addMember(user,Level.LEADER);
     }
 
     public Team() {
