@@ -23,4 +23,5 @@ public class UserRegisterController {
         System.out.println(user);
         return  userService.addUser(user);
     }
+
 }
