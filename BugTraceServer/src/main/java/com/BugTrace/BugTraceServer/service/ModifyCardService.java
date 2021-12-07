@@ -1,7 +1,6 @@
 package com.BugTrace.BugTraceServer.service;
 
 import com.BugTrace.BugTraceServer.dao.CardRepository;
-import com.BugTrace.BugTraceServer.dao.TeamDao;
 import com.BugTrace.BugTraceServer.dao.TeamMemberRepository;
 import com.BugTrace.BugTraceServer.dao.TeamRepository;
 import com.BugTrace.BugTraceServer.model.Card;
@@ -9,7 +8,6 @@ import com.BugTrace.BugTraceServer.model.Impact;
 import com.BugTrace.BugTraceServer.model.Team;
 import com.BugTrace.BugTraceServer.model.TypeOfCard;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,10 +57,6 @@ public class ModifyCardService
                     card.setCompletedBy(completedBy);
                     card.setDateCompleted(java.time.LocalDate.now().toString());
                     card.setTypeOfCard(TypeOfCard.COMPLETED);
-                    team.addCard(card);
-                }
-                else
-                {
                     team.addCard(card);
                 }
                 cardRepository.saveAll(team.getInProgress());

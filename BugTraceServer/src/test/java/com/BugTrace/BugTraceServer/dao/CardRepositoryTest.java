@@ -12,7 +12,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@DataJpaTest
+@SpringBootTest
 class CardRepositoryTest {
     @Autowired
     private CardRepository cardRepository;

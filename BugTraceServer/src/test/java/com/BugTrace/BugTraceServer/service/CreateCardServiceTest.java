@@ -18,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,7 +44,6 @@ class CreateCardServiceTest {
     private String password ="123123";
     private User testUser;
 
-    // String assignTo, String priority, List<String> keywords, String description
     private String title="testCard";
     private String assignTo="Kuraido";
     private Impact priority =Impact.HIGH;

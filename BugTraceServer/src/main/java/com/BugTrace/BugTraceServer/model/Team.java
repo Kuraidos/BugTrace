@@ -37,7 +37,6 @@ public class Team
 
     public int removeMember()
     {
-
         return 0;
     }
 
@@ -94,6 +93,7 @@ public class Team
             cards.removeIf(cardToRemove -> cardToRemove.getCardId().equals(cardId));
             cardToComplete.setCompletedBy(cardToComplete.getAssignedTo());
             cardToComplete.setDateCompleted(java.time.LocalDate.now().toString());
+            cardToComplete.setTypeOfCard(TypeOfCard.COMPLETED);
             cards.add(cardToComplete);
             return 1;
         }
