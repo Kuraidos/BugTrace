@@ -38,9 +38,6 @@ public class UserRegisterService
         try
         {
             Team newTeam = new Team(user.getUsername()+"'s Team",user);
-            List<TeamMember> teamMemberList = newTeam.getTeamMembers();
-            teamMemberList.add(new TeamMember(user,Level.MANAGER));
-            newTeam.setTeamMembers(teamMemberList);
             teamMemberRepository.saveAll(newTeam.getTeamMembers());
             cardRepository.saveAll(newTeam.getInProgress());
             cardRepository.saveAll(newTeam.getCompleted());
