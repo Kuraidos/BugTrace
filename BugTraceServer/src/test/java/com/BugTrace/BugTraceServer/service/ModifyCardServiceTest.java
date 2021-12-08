@@ -41,7 +41,6 @@ class ModifyCardServiceTest {
     private String email = "serelisltu@gmail.com";
     private String password = "123123";
     private User testUser;
-    private Team testTeam;
 
 
     private String title="testCard";
