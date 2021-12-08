@@ -3,6 +3,8 @@ package com.BugTrace.BugTraceServer.api;
 import com.BugTrace.BugTraceServer.model.User;
 import com.BugTrace.BugTraceServer.service.UserLoginService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserLoginController
 {
+    Logger logger = LoggerFactory.getLogger(UserLoginController.class);
     private final UserLoginService userService;
 
     @Autowired
@@ -22,7 +25,9 @@ public class UserLoginController
     @PostMapping
     public User getUser(@RequestBody ObjectNode json)
     {
-        System.out.println(userService.Login(json.get("email").asText(),json.get("password").asText()));
-        return (userService.Login(json.get("email").asText(),json.get("password").asText()));
+        logger.info("Request: "+json.toString());
+        User result =userService.Login(json.get("email").asText(),json.get("password").asText());
+        logger.info("Response: "+result);
+        return result;
     }
 }
