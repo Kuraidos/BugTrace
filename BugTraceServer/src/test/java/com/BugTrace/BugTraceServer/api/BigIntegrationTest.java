@@ -1,7 +1,4 @@
 package com.BugTrace.BugTraceServer.api;
-import com.BugTrace.BugTraceServer.model.TeamMember;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

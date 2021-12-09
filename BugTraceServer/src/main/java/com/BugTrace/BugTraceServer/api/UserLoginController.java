@@ -1,5 +1,4 @@
 package com.BugTrace.BugTraceServer.api;
-
 import com.BugTrace.BugTraceServer.model.User;
 import com.BugTrace.BugTraceServer.service.UserLoginService;
 import com.fasterxml.jackson.databind.node.ObjectNode;

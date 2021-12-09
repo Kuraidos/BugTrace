@@ -6,18 +6,15 @@ import com.BugTrace.BugTraceServer.dao.TeamRepository;
 import com.BugTrace.BugTraceServer.dao.UserRepository;
 import com.BugTrace.BugTraceServer.model.Card;
 import com.BugTrace.BugTraceServer.model.Impact;
-import com.BugTrace.BugTraceServer.model.Team;
 import com.BugTrace.BugTraceServer.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest

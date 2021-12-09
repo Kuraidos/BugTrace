@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CreateCardController
 {
-    Logger logger = LoggerFactory.getLogger(MainPageDataController.class);
+    Logger logger = LoggerFactory.getLogger(CreateCardController.class);
     private final CreateCardService service;
     @Autowired
     CreateCardController(CreateCardService service) {this.service=service;}

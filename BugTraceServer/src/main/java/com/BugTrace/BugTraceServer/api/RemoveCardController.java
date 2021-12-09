@@ -1,8 +1,4 @@
 package com.BugTrace.BugTraceServer.api;
-
-import com.BugTrace.BugTraceServer.model.Team;
-import com.BugTrace.BugTraceServer.model.User;
-import com.BugTrace.BugTraceServer.service.MainPageDataService;
 import com.BugTrace.BugTraceServer.service.RemoveCardService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;

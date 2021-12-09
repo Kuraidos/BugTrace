@@ -1,14 +1,11 @@
 package com.BugTrace.BugTraceServer.service;
-
-import com.BugTrace.BugTraceServer.dao.*;
-import com.BugTrace.BugTraceServer.model.*;
+import com.BugTrace.BugTraceServer.dao.TeamMemberRepository;
+import com.BugTrace.BugTraceServer.dao.TeamRepository;
+import com.BugTrace.BugTraceServer.dao.UserRepository;
+import com.BugTrace.BugTraceServer.model.Team;
+import com.BugTrace.BugTraceServer.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class UserRegisterService

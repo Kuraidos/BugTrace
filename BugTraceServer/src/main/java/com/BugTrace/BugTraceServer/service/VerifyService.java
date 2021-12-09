@@ -1,14 +1,11 @@
 package com.BugTrace.BugTraceServer.service;
 
-import com.BugTrace.BugTraceServer.dao.TeamDao;
 import com.BugTrace.BugTraceServer.dao.TeamRepository;
-import com.BugTrace.BugTraceServer.dao.UserDao;
 import com.BugTrace.BugTraceServer.dao.UserRepository;
 import com.BugTrace.BugTraceServer.model.Team;
 import com.BugTrace.BugTraceServer.model.TeamMember;
 import com.BugTrace.BugTraceServer.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

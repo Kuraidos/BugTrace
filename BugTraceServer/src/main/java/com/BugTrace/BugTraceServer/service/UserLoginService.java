@@ -1,10 +1,8 @@
 package com.BugTrace.BugTraceServer.service;
 
-import com.BugTrace.BugTraceServer.dao.UserDao;
 import com.BugTrace.BugTraceServer.dao.UserRepository;
 import com.BugTrace.BugTraceServer.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service

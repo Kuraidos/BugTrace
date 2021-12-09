@@ -1,6 +1,5 @@
 package com.BugTrace.BugTraceServer.api;
 
-import com.BugTrace.BugTraceServer.service.MainPageDataService;
 import com.BugTrace.BugTraceServer.service.ModifyCardService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
