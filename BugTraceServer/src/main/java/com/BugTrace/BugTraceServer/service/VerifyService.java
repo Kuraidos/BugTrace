@@ -17,7 +17,7 @@ public class VerifyService
     private final TeamRepository teamRepository;
     @Autowired
     public VerifyService(TeamRepository teamRepository,UserRepository userRepository){this.teamRepository=teamRepository;this.userRepository=userRepository;}
-    //Need to check if user exists, then if it is part of the team
+    //Checks if user provider correct password and email
     public boolean verifyExists(String email, String password)
     {
         User user = userRepository.findById(email).orElse(null);
@@ -30,7 +30,7 @@ public class VerifyService
         }
         return false;
     }
-
+    //Checks if user part of the team
     public boolean verifyPartOfTeam(String email, String teamId)
     {
         Team searchIn = teamRepository.findById(UUID.fromString(teamId)).orElse(null);

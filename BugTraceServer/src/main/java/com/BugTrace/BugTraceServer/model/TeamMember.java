@@ -3,7 +3,7 @@ package com.BugTrace.BugTraceServer.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.UUID;
-
+//Class which holds data about teamMember which will be present in Tteam class
 @Entity(name="team_member")
 public class TeamMember
 {

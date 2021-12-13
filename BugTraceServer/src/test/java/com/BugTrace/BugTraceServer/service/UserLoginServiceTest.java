@@ -14,20 +14,25 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 class UserLoginServiceTest {
 
+    //Daos used with the test
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private TeamMemberRepository teamMemberRepository;
     @Autowired
     private TeamRepository teamRepository;
+
+    //List of services used
     private UserRegisterService userRegisterService;
     private UserLoginService underTest;
 
+    //Data about user
     private String username = "Kuraido";
     private String email = "serelisltu@gmail.com";
     private String password = "123123";
     private User testUser;
 
+    //setting up services and daos
     @BeforeEach
     void setUp()
     {
@@ -37,6 +42,7 @@ class UserLoginServiceTest {
         underTest=new UserLoginService(userRepository);
     }
 
+    //Delete contents of database after each
     @AfterEach
     void tearDown()
     {

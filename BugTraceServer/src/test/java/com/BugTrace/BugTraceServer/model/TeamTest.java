@@ -13,12 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TeamTest {
 
+    //info about user
     private String username="Kuraido";
     private String email="serelisltu@gmail.com";
     private String password="123123";
     private User testUser;
     private Team underTest;
 
+    //info about card
     private UUID cardId= UUID.randomUUID();
     private String title="testCard";
     private String creator ="Kuraido";

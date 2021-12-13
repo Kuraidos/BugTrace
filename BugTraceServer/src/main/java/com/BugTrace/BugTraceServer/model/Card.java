@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.List;
 import java.util.UUID;
+//This class is more like structure, it only has setters and getters with additions replace toString function
 @Entity(name="card")
 public class Card
 {

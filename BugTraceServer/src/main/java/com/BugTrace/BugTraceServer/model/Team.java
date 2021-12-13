@@ -45,6 +45,7 @@ public class Team
         cards.add(card);
         return 1;
     }
+    //Remove card from any group with provided cardId
     public int removeCard(UUID cardId)
     {
         Card card =cards.stream().filter(cardToFind -> cardToFind.getCardId().equals(cardId)).findAny().orElse(null);
@@ -62,7 +63,7 @@ public class Team
         return 1;
     }
 
-
+    //Moves card from T0DO to inprogress
     public int assignTodo(Card card)
     {
         Card cardToMove = cards.stream().filter(cardToFind -> cardToFind.getCardId().equals(card.getCardId())).findAny().orElse(null);
@@ -78,6 +79,7 @@ public class Team
         }
         return 1;
     }
+    //Add card with inprogress tag
     public int addInProgress(Card card)
     {
         card.setTypeOfCard(TypeOfCard.INPROGRESS);
@@ -85,6 +87,7 @@ public class Team
         return 1;
     }
 
+    //Moves card from T0DO to completed
     public int completeTodo(UUID cardId)
     {
         Card cardToComplete = cards.stream().filter(cardToFind -> cardToFind.getCardId().equals(cardId)).findAny().orElse(null);
@@ -100,6 +103,7 @@ public class Team
         return 0;
     }
 
+    //Move card from inpgoress to complted
     public int completeInProgress(Card card)
     {
         Card cardToMove = this.cards.stream().filter(cardToFind -> cardToFind.getCardId().equals(card.getCardId())).findAny().orElse(null);
@@ -113,6 +117,7 @@ public class Team
         return 0;
     }
 
+    //Removes card which is in inprogress
     public int removeInProgress(UUID cardId)
     {
         Card cardToRemove =this.cards.stream().filter(cardToFind -> cardToFind.getCardId().equals(cardId)).findAny().orElse(null);
@@ -125,6 +130,7 @@ public class Team
     }
 
 
+    //Setters and getters
     public String getName() {
         return name;
     }

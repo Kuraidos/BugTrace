@@ -21,6 +21,7 @@ public class UserLoginController
         this.userService=userService;
     }
 
+    //Pass data to service
     @PostMapping
     public User getUser(@RequestBody ObjectNode json)
     {

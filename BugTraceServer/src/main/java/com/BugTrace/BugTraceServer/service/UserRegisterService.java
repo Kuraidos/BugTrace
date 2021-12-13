@@ -25,6 +25,7 @@ public class UserRegisterService
         this.teamMemberRepository= teamMemberRepository;
 
     }
+    //Simply adds user to database
     public int addUser(User user)
     {
 

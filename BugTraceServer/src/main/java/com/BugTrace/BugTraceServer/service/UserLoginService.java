@@ -12,6 +12,7 @@ public class UserLoginService
     @Autowired
     public UserLoginService(UserRepository userRepository) {this.userRepository=userRepository;}
 
+    //Checks if user password nad email match, if does allow login
     public User Login(String email, String password)
     {
         User user=userRepository.findById(email).orElse(null);

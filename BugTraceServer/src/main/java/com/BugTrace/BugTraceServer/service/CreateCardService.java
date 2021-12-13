@@ -14,7 +14,9 @@ import java.util.UUID;
 @Service
 public class CreateCardService
 {
-    private final VerifyService service;
+
+    private final VerifyService service; // Service used to check if user is valid, and part of the team
+    //Daos which are used
     private final CardRepository cardRepository;
     private final TeamRepository teamRepository;
     @Autowired
@@ -24,8 +26,9 @@ public class CreateCardService
     {
         if(service.verifyExists(email,password) && service.verifyPartOfTeam(email,teamId))
         {
-            Team team = teamRepository.findById(UUID.fromString(teamId)).orElse(null);
-            Card card = new Card(UUID.randomUUID(),title,username,java.time.LocalDate.now().toString(), Impact.valueOf(priority));
+            Team team = teamRepository.findById(UUID.fromString(teamId)).orElse(null); //Look if user is part of team
+            Card card = new Card(UUID.randomUUID(),title,username,java.time.LocalDate.now().toString(), Impact.valueOf(priority)); //Create new card to be inserted
+            //Set additional details, which are not mandatory for card creation
             card.setKeywords(keywords);
             card.setDescription(description);
             if(!assignTo.equals(""))
@@ -37,7 +40,7 @@ public class CreateCardService
             {
                 team.addTodo(card);
             }
-            cardRepository.save(card);
+            cardRepository.save(card); // save new card
             return 1;
         }
         return 0;

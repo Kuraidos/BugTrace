@@ -15,8 +15,11 @@ public class MainPageDataController
 {
     Logger logger = LoggerFactory.getLogger(MainPageDataController.class);
     private final MainPageDataService service;
+
+
     @Autowired
     public MainPageDataController(MainPageDataService service){this.service=service;}
+
 
     @PostMapping
     public Team getMainPageData(@RequestBody ObjectNode json)

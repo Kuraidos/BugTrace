@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class RemoveCardServiceTest {
 
 
+    //Daos used with the test
     @Autowired
     private CardRepository cardRepository;
     @Autowired
@@ -31,25 +32,27 @@ class RemoveCardServiceTest {
     @Autowired
     private TeamMemberRepository teamMemberRepository;
 
+    //List of services used
     private RemoveCardService underTest;
     private UserRegisterService userRegisterService;
     private CreateCardService createCardService;
     private VerifyService verifyService;
 
+    //Data about user
     private String username = "Kuraido";
     private String email = "serelisltu@gmail.com";
     private String password = "123123";
     private User testUser;
     private Team testTeam;
 
-
-
+    //Data about card
     private String title="testCard";
     private String assignTo="Kuraido";
     private Impact priority =Impact.HIGH;
     private List<String> keywords= new ArrayList<>();
     private String description="";
 
+    //setting up services and daos
     @BeforeEach
     void setUp()
     {
@@ -63,6 +66,7 @@ class RemoveCardServiceTest {
         createCardService.CreateCard(email,password,testUser.getTeamId().toString(),username,title,assignTo,priority.toString(),keywords,description);
     }
 
+    //Delete contents of database after each
     @AfterEach
     void tearDown()
     {

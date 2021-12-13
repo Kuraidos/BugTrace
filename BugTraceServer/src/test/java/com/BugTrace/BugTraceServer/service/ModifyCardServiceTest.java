@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 class ModifyCardServiceTest {
 
+    //Daos used with the test
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -29,23 +30,26 @@ class ModifyCardServiceTest {
     @Autowired
     private TeamMemberRepository teamMemberRepository;
 
+    //List of services used
     private VerifyService verifyService;
     private CreateCardService createCardService;
     private UserRegisterService userRegisterService;
     private ModifyCardService underTest;
 
+    //Data about user
     private String username = "Kuraido";
     private String email = "serelisltu@gmail.com";
     private String password = "123123";
     private User testUser;
 
-
+    //Data about card
     private String title="testCard";
     private String assignTo="Kuraido";
     private Impact priority =Impact.HIGH;
     private List<String> keywords= new ArrayList<>();
     private String description="";
 
+    //setting up services and daos
     @BeforeEach
     void setUp()
     {
@@ -60,9 +64,6 @@ class ModifyCardServiceTest {
 
     }
 
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     void modifyCard()

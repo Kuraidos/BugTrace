@@ -16,6 +16,7 @@ public class RemoveCardService
     public RemoveCardService(VerifyService verify,TeamRepository teamRepository,CardRepository cardRepository){this.verify=verify;this.teamRepository=teamRepository;this.cardRepository=cardRepository;}
     public int removeCard(String email, String password ,String teamId,String cardId)
     {
+        //check if request is valid and part of the team, if he is removes card
         if(verify.verifyExists(email,password) && verify.verifyPartOfTeam(email,teamId))
         {
             Team workingTeam = teamRepository.findById(UUID.fromString(teamId)).orElse(null);

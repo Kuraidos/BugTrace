@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CreateCardServiceTest {
 
 
+    //Daos used with the test
     @Autowired
     private CardRepository cardRepository;
     @Autowired
@@ -32,21 +33,25 @@ class CreateCardServiceTest {
     @Autowired
     private TeamMemberRepository teamMemberRepository;
 
+    //list of services used
     private VerifyService verify;
     private UserRegisterService registerService;
     private CreateCardService underTest;
 
+    //info about user
     private String username="Kuraido";
     private String email="serelisltu@gmail.com";
     private String password ="123123";
     private User testUser;
 
+    //Info about card
     private String title="testCard";
     private String assignTo="Kuraido";
     private Impact priority =Impact.HIGH;
     private List<String> keywords= new ArrayList<>();
     private String description="";
 
+    //setting up services and daos
     @BeforeEach
     void setUp()
     {

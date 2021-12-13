@@ -17,6 +17,7 @@ public class MainPageDataService
     private final TeamMemberRepository teamMemberRepository;
     private final VerifyService verify;
 
+    // Checks if user exist and part of the team. If both are true return team data
     @Autowired
     public MainPageDataService(VerifyService verify, TeamRepository teamRepository,CardRepository cardRepository,TeamMemberRepository teamMemberRepository){this.verify=verify;this.teamRepository=teamRepository;this.teamMemberRepository=teamMemberRepository;this.cardRepository=cardRepository;}
 

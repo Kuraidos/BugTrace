@@ -33,6 +33,7 @@ public class ModifyCardService
             Card tempCard =team.getToDos().stream().filter(cardToFind -> cardToFind.getCardId().equals(UUID.fromString(cardId))).findAny().orElse(team.getInProgress().stream().filter(cardToFind -> cardToFind.getCardId().equals(UUID.fromString(cardId))).findAny().orElse(null));
             if(tempCard!=null)
             {
+                //Creates new card and sets data
                 Card card = new Card(UUID.fromString(cardId),title,username,tempCard.getDateCreated(), Impact.valueOf(priority));
                 card.setKeywords(keywords);
                 card.setDescription(description);
@@ -41,6 +42,8 @@ public class ModifyCardService
                 card.setCreator(tempCard.getCreator());
                 card.setDateCreated(tempCard.getDateCreated());
                 team.removeCard(UUID.fromString(cardId));
+
+                //Decided from which data is missing, if it is part of T0DO, INPROGRESS or COMPLETED
                 if(assignTo.equals("") && completedBy.equals(""))
                 {
                     card.setDateAssigned("");
@@ -59,6 +62,7 @@ public class ModifyCardService
                     card.setTypeOfCard(TypeOfCard.COMPLETED);
                     team.addCard(card);
                 }
+                //Saves data
                 cardRepository.saveAll(team.getInProgress());
                 cardRepository.saveAll(team.getCompleted());
                 cardRepository.saveAll(team.getToDos());

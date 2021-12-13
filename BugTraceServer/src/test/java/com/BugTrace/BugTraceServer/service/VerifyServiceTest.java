@@ -21,15 +21,19 @@ import static org.mockito.Mockito.verify;
 @DataJpaTest
 class VerifyServiceTest {
 
+    //Daos used with the test
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private TeamRepository teamRepository;
     @Autowired
     private TeamMemberRepository teamMemberRepository;
+
+    //service used
     private VerifyService underTest;
 
 
+    //Data about user
     private String username = "Kuraido";
     private String password = "123123";
     private String email = "serelisltu@gmail.com";
@@ -37,6 +41,7 @@ class VerifyServiceTest {
     Team testTeam;
 
 
+    //setting up services and daos
     @BeforeEach
     void setUp()
     {
@@ -47,6 +52,8 @@ class VerifyServiceTest {
         teamRepository.save(testTeam);
         underTest = new VerifyService(teamRepository,userRepository);
     }
+
+    //Delete contents of database after each
     @AfterEach
     void tearDown()
     {

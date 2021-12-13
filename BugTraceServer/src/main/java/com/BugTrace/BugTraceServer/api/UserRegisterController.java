@@ -22,6 +22,7 @@ public class UserRegisterController {
     }
 
     @PostMapping
+    //Takes user data and pass it to service
     public int addUser(@RequestBody User user)
     {
         logger.info("Request: "+user.toString());

@@ -21,6 +21,7 @@ public class ModifyCardController
     @Autowired
     public ModifyCardController(ModifyCardService service){this.service=service;}
 
+    //Pass data to service
     @PostMapping
     public int modifyCard(@RequestBody ObjectNode json)
     {

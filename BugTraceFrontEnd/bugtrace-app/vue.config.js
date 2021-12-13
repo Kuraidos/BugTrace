@@ -1,6 +1,7 @@
 module.exports = {
     devServer: {
-        port: 8081, // CHANGE YOUR PORT HERE!
+        port: 8081,
+        //This command will enables https into the website
         https: true
     },
 }

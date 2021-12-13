@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.UUID;
-
+//Holds data about user
 @Entity(name="user_data")
 public class User
 {

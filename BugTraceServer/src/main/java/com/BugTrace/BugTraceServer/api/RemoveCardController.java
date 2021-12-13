@@ -17,6 +17,7 @@ public class RemoveCardController
     @Autowired
     public RemoveCardController(RemoveCardService service){this.service=service;}
 
+    //Pass data to service
     @PostMapping
     public int removeCard(@RequestBody ObjectNode json)
     {
