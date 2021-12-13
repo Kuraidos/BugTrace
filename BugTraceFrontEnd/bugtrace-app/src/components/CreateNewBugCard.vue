@@ -90,6 +90,7 @@ export default {
     },
     modify()
     {
+      //Need to find if is possible to group the data for easier data transmit
       let self = this;
       axios.post('http://localhost:8080/app/modify', {
         email: this.$route.params.email,
@@ -120,7 +121,7 @@ export default {
     ,
     addedEvent()
     {
-      this.$emit("added")
+      this.$emit("added") //custom event, to help close
     },
     whatType()
     {

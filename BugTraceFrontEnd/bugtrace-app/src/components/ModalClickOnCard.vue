@@ -67,10 +67,11 @@ export default {
   methods:{
     close()
     {
-      this.$emit("close")
+      this.$emit("close") //custom event to identify if user wants to close
     },
     completeCard()
     {
+      //sending data
       let self = this;
       axios.post('http://localhost:8080/app/modify', {
         email: this.$route.params.email,

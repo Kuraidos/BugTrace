@@ -47,7 +47,11 @@ export default {
         {
           if(this.ConfirmPassword())
           {
-              axios.post('http://localhost:8080/register', {username: this.username, email: this.email, password: this.password}).then(function (response) {
+              axios.post('http://localhost:8080/register', {
+                username: this.username,
+                email: this.email,
+                password: this.password
+                }).then(function (response) {
                 this.checkServerError(response.data)
               }.bind(this));
           }
