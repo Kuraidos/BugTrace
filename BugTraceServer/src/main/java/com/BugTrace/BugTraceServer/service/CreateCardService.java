@@ -34,6 +34,7 @@ public class CreateCardService
             if(!assignTo.equals(""))
             {
                 card.setAssignedTo(assignTo);
+                card.setDateAssigned(java.time.LocalDate.now().toString());
                 team.addInProgress(card);
             }
             else

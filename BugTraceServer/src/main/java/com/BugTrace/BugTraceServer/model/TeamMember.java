@@ -1,5 +1,6 @@
 package com.BugTrace.BugTraceServer.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.UUID;
@@ -9,8 +10,11 @@ public class TeamMember
 {
     @Id
     private UUID memberId;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private Level level;
 
     public TeamMember(User user, Level level) {

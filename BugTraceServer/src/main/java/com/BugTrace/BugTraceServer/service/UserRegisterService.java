@@ -26,11 +26,14 @@ public class UserRegisterService
 
     }
     //Simply adds user to database
+    //Make in front end when returned 0, print error that email is taken.
     public int addUser(User user)
     {
 
         try
         {
+            User checkUser = userRepository.findById(user.getEmail()).orElse(null);
+            if(checkUser!=null) {return 0;}
             Team newTeam = new Team(user.getUsername()+"'s Team",user);
             teamMemberRepository.saveAll(newTeam.getTeamMembers());
             teamRepository.save(newTeam);

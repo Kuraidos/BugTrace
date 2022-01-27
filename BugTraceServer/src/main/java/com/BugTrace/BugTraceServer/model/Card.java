@@ -1,5 +1,6 @@
 package com.BugTrace.BugTraceServer.model;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,17 +12,22 @@ public class Card
 {
     @Id
     private UUID cardId;
+    @Column(nullable = false)
     private String title;
+    @Column(nullable = false)
     private String creator;
+    @Column(nullable = false)
     private String dateCreated;
     private String dateAssigned="";
     private String dateCompleted="";
     private String assignedTo="";
     private String completedBy="";
     private String description="";
+    @Column(nullable = false)
     private Impact impact;
     @ElementCollection
     private List<String> keywords;
+    @Column(nullable = false)
     private TypeOfCard typeOfCard;
 
     public Card(UUID cardId, String title, String creator, String dateCreated, Impact impact) {

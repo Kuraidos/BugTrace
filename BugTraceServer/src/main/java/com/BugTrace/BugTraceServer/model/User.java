@@ -1,7 +1,10 @@
 package com.BugTrace.BugTraceServer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
+import org.springframework.lang.NonNull;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.UUID;
@@ -9,10 +12,13 @@ import java.util.UUID;
 @Entity(name="user_data")
 public class User
 {
+    @Column(nullable = false)
     private String username;
     @Id
     private String email;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private UUID teamId;
 
     public User(@JsonProperty("username") String username,@JsonProperty("email") String email, @JsonProperty("password") String password) {

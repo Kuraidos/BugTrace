@@ -9,12 +9,15 @@ import java.util.stream.Collectors;
 @Entity(name = "team")
 public class Team
 {
+    @Column(nullable = false)
     private String name;
     @Id
     private UUID teamId;
     @OneToMany
+    @Column(nullable = false)
     private List<TeamMember> teamMembers = new LinkedList<>();
     @OneToMany
+    @Column(nullable = false)
     private List<Card> cards = new LinkedList<>();
 
     public Team(String name, User user)
