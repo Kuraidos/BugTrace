@@ -1,5 +1,6 @@
 name: Docker Image CI
 
+#This will occurr on push and pull request
 on:
   push:
     branches: [ main ]
@@ -8,19 +9,18 @@ on:
 
 jobs:
   runner-job:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Create a ubuntu runner with latest verion
     services:
-      # Label used to access the service container
+      #Creating a database for testing purposes
       postgres:
-        # Docker Hub image
+        # Docker Hub image, the one I am using for the project
         image: postgres:alpine
         # Provide the password for postgres
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: bugtrace
         ports:
-          - 5432:5432
-        # Set health checks to wait until postgres has started
+          - 5432:5432 # Open port so it could be used
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -29,17 +29,18 @@ jobs:
 
     defaults:
       run:
-        working-directory: BugTraceServer
+        working-directory: BugTraceServer #Set working directory to BugTraceServer folder
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 17
+    - uses: actions/checkout@v2 # Copy contests of the repository 
+    - name: Set up JDK 17 # Installing JDK17 into the runner
       uses: actions/setup-java@v2
       with:
         java-version: '17'
         distribution: 'adopt'
         cache: maven
     - name: Build with Maven
-      run: mvn install
+      run: mvn install #Executing mvn install which will create an artifact of program and run all the tests
     - name: Build the Docker image
-      run: docker build -t bugtraceserver .
+      run: docker build -t bugtraceserver . # Last step is to build docker image,just to is if it works. 
+                                            # This image can be copied into machine for CD but this is no necessery right now
