@@ -5,7 +5,6 @@
       <div class="col-sm"></div>
       <div class="col-sm">
         <div class="loginForm" @submit.prevent="register">
-          {{error}}
           <form>
             <div class="form-group myInputs">
               <label for="username">Username</label>
@@ -23,8 +22,10 @@
               <label for="passwordConfirm">Confirm Password</label>
               <input v-model="passwordRe" type="password" class="form-control" id="passwordConfirm" placeholder="Confirm Your Password">
             </div>
+            <h6 v-if="error" style="color:red">{{error}}</h6>
             <button class="btn btn-primary myBigButton">Register</button>
           </form>
+
         </div>
       </div>
       <div class="col-sm"></div>
@@ -58,13 +59,19 @@ export default {
         },
         ConfirmPassword()
         {
-          if(this.password==this.passwordRe)
+          if(this.password.length<8 )
+          {
+            this.error="Password is too short! Password needs to be at least 8 characters long!"
+            return false;
+          }
+          else if(this.password!=this.passwordRe)
+          {
+            this.error="Passwords do not match!"
+            return(false);
+          }
+          else if(this.password==this.passwordRe)
           {
             return(true);
-          }
-          else if(this.password.isEmpty() || this.password.length<8 )
-          {
-            this.error="Password is too short!"
           }
           return false;
         },
@@ -74,9 +81,9 @@ export default {
           {
             this.$router.push({name:"Login"});
           }
-          else if(number==2)
+          else if(number==0)
           {
-            this.error="dis is bad"
+            this.error="Email is already taken!"
           }
         }
       },
