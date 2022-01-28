@@ -45,33 +45,13 @@ class BigIntegrationTest
         assertEquals("1",content);
     }
 
+
     @Test
     @Order(2)
-    void  login() throws Exception {
-        JSONObject user = new JSONObject();
-        user.put("email",email);
-        user.put("password",password);
-
-        MvcResult response = mockMvc.perform(post("/")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(user.toString())).andExpect(status().isOk()).andReturn();
-
-        String content = response.getResponse().getContentAsString();
-        JSONObject result = new JSONObject(content);
-        teamId=UUID.fromString(result.get("teamId").toString());
-        assertEquals(username,result.get("username"));
-        assertEquals(password,result.get("password"));
-        assertEquals(email,result.get("email"));
-
-    }
-
-    @Test
-    @Order(3)
     void  mainPageDataTest() throws Exception {
         JSONObject user = new JSONObject();
         user.put("email","serelisltu@gmail.com");
         user.put("password","123123");
-        user.put("teamId",teamId.toString());
 
         MvcResult response = mockMvc.perform(post("/app")
                 .contentType(MediaType.APPLICATION_JSON)
