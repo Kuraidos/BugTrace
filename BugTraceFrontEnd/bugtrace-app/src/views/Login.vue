@@ -48,7 +48,7 @@ export default {
     login()
     {
       let self = this;
-      axios.post('http://localhost:8080/', {email: this.email, password: this.password}).then(function (response) {
+      axios.post('http://localhost:8080/app', {email: this.email, password: this.password}).then(function (response) {
         if(response.data!="")
         {
           self.$router.push({name:"MainPage",params:{username: response.data.username,password: response.data.password, email:response.data.email, teamId: response.data.teamId}});

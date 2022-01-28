@@ -25,7 +25,7 @@ public class MainPageDataController
     public Team getMainPageData(@RequestBody ObjectNode json)
     {
         logger.info("Request: "+json.toString());
-        Team result =service.getMainPageData(json.get("email").asText(),json.get("password").asText(),json.get("teamId").asText());
+        Team result =service.getMainPageData(json.get("email").asText(),json.get("password").asText());
         logger.info("Response: "+result);
         return result;
     }

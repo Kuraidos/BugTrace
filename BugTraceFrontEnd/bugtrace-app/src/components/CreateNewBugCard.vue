@@ -22,7 +22,7 @@
                 <div class="form-group myInputs">
                   <label for="keywords" class="myLabel">Add Keywords</label>
                   <input v-model="tempKeyword" @keyup="addKeyword" type="text" class="form-control keywordInput" id="keywords" placeholder="Zoom">
-                  <button type="button" class="btn btn-primary addButton" @click="modifyData()">Add</button>
+                  <button type="button" class="btn btn-primary addButton" @click="addKeyword">Add</button>
                   <div class="myPills">
                     <span class="badge rounded-pill bg-danger myPill">{{ priority }}</span>
                     <span v-for="keyword in keywords " class="badge rounded-pill bg-primary myPill">{{ keyword }}</span>
@@ -69,12 +69,19 @@ export default {
     addKeyword(e)
     {
       console.log(e)
-      if((e.key==='Enter' || e.key===',') && this.tempKeyword!="")
+      if((e.key==='Enter' || e.key===',' || e.type==='click') && this.tempKeyword!="")
       {
           this.keywords.push(this.tempKeyword.replaceAll(",",""))
           this.tempKeyword=""
       }
 
+    },checkCorrectness()
+    {
+      if(this.title=="")
+      {
+        return false;
+      }
+      return(true);
     },
     modifyData()
     {

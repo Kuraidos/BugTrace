@@ -25,7 +25,6 @@ public class CreateCardController
     @PostMapping
     public int createCard(@RequestBody ObjectNode json)
     {
-        logger.info("Request: "+json.toString());
         List<String> keywords = new LinkedList<>();
         json.get("keywords").forEach(keyword -> keywords.add(keyword.asText()));
         int result =service.CreateCard(
@@ -38,7 +37,7 @@ public class CreateCardController
                 json.get("priority").asText(),
                 keywords,
                 json.get("description").asText());
-        logger.info("Response: "+result);
+        logger.info("Request: {} => Response: {}",json,result);
         return result;
     }
 

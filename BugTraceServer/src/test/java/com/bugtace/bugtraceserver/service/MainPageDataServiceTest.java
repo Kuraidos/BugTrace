@@ -47,7 +47,7 @@ class MainPageDataServiceTest {
     void setUp()
     {
         verify = new VerifyService(teamRepository,userRepository);
-        underTest = new MainPageDataService(verify,teamRepository,cardRepository,teamMemberRepository);
+        underTest = new MainPageDataService(verify,teamRepository,cardRepository,teamMemberRepository,userRepository);
         userRegisterService= new UserRegisterService(userRepository,teamRepository,teamMemberRepository);
 
         testUser= new User(username,email,password);
@@ -71,7 +71,7 @@ class MainPageDataServiceTest {
     {
 
         boolean result =false;
-        Team received = underTest.getMainPageData(email,password,testUser.getTeamId().toString());
+        Team received = underTest.getMainPageData(email,password);
         if(received!=null)
         {
             result=true;
@@ -83,7 +83,7 @@ class MainPageDataServiceTest {
     {
 
         boolean result =false;
-        Team received = underTest.getMainPageData(email,email,testUser.getTeamId().toString());
+        Team received = underTest.getMainPageData(email,email);
         if(received!=null)
         {
             result=true;
