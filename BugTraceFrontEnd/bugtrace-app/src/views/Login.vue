@@ -48,12 +48,19 @@ export default {
     login()
     {
       let self = this;
-      axios.post('http://localhost:8080/app', {email: this.email, password: this.password}).then(function (response) {
+      let password = this.password;
+      let email = this.email;
+      axios.post('http://localhost:8080/app', {email: email, password: password}).then(function (response) {
         if(response.data!="")
         {
-          self.$router.push({name:"MainPage",params:{username: response.data.username,password: response.data.password, email:response.data.email, teamId: response.data.teamId}});
+          self.$router.push({name:"MainPage",params:{username: (response,email),password: password, email:email, teamId: response.data.teamId}});
         }
       });
+    }
+    ,getUsername(response,email)
+    {
+      let username="";
+      response.teamMembers.forEach(member => {if(member.email==email){username=member.username}});
     }
   }
 }
