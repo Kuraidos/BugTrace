@@ -6,6 +6,7 @@
       <div class="col-sm">
         <div class="loginForm" @submit.prevent="login">
           <form>
+            {{test}}
             <div class="form-group myInputs">
               <label for="email">Email address</label>
               <input v-model="email" type="email" class="form-control" id="email"  placeholder="Example@email.com">
@@ -41,26 +42,29 @@ export default {
   data()
   {
     return{
-      email:"",password:""
+      email:"",password:"",test:"No CLick"
     }
   },
   methods: {
-    login()
+    login: function ()
     {
       let self = this;
       let password = this.password;
       let email = this.email;
-      axios.post('http://localhost:8080/app', {email: email, password: password}).then(function (response) {
+
+      axios.post('http://192.168.0.16:8080/app', {email: email, password: password}).then(function (response) {
         if(response.data!="")
         {
           self.$router.push({name:"MainPage",params:{username: (response,email),password: password, email:email, teamId: response.data.teamId}});
+          this.test="click";
         }
+
       });
     }
     ,getUsername(response,email)
     {
       let username="";
-      response.teamMembers.forEach(member => {if(member.email==email){username=member.username}});
+      response.teamMembers.forEach(function(member) {if(member.email==email){username=member.username}});
     }
   }
 }

@@ -16,15 +16,19 @@
                   <input v-model="assignTo" type="text" class="form-control" id="assignTo" placeholder="None">
                 </div>
                 <div class="form-group myInputs">
-                  <label for="priority">Priority</label>
-                  <input v-model="priority" type="text" class="form-control" id="priority" placeholder="Set Priority">
+                  <label>Priority</label>
+                  <select @click="pillColor" v-model="priority" class="form-control" >>
+                    <option>HIGH</option>
+                    <option>MEDIUM</option>
+                    <option>LOW</option>
+                  </select>
                 </div>
                 <div class="form-group myInputs">
                   <label for="keywords" class="myLabel">Add Keywords</label>
                   <input v-model="tempKeyword" @keyup="addKeyword" type="text" class="form-control keywordInput" id="keywords" placeholder="Zoom">
                   <button type="button" class="btn btn-primary addButton" @click="addKeyword">Add</button>
                   <div class="myPills">
-                    <span class="badge rounded-pill bg-danger myPill">{{ priority }}</span>
+                    <span class="badge rounded-pill bg-success myPill" id="priority">{{ priority }}</span>
                     <span v-for="keyword in keywords " class="badge rounded-pill bg-primary myPill">{{ keyword }}</span>
                   </div>
                 </div>
@@ -32,6 +36,7 @@
                   <label>Description</label>
                   <textarea v-model="description" class="form-control" id="descriptio" rows="8" style="resize: none"></textarea>
                 </div>
+                <h6 style="color:red" v-if="error">{{error}}</h6>
                 <button id="myButton" @click="postWhere" class="btn btn-primary myBigButton">{{ buttonText }}</button>
               </form>
             </div>
@@ -47,7 +52,7 @@ export default {
   name: "CreateNewBugCard",
   data(){
     return{
-        title:"",assignTo:"",priority:"",keywords:[],description:"",tempKeyword:"",type:"",buttonText:"Create",formTitle:"Bug Card Creation"
+        title:"",assignTo:"",priority:"LOW",keywords:[],description:"",tempKeyword:"",type:"",buttonText:"Create",formTitle:"Bug Card Creation",error:""
     }},
   props:["card"],
   created()
@@ -59,12 +64,14 @@ export default {
   },
   methods: {
     create()
+    {if(this.checkCorrectness())
     {
       let self = this;
       axios.post('http://localhost:8080/app/create', {email: this.$route.params.email, password: this.$route.params.password,username: this.$route.params.username,teamId: this.$route.params.teamId,
-      title: this.title,assignTo:this.assignTo,priority:this.priority,keywords:this.keywords,description:this.description}).then(function (response) {
+        title: this.title,assignTo:this.assignTo,priority:this.priority,keywords:this.keywords,description:this.description}).then(function (response) {
       });
       this.addedEvent()
+    }
     },
     addKeyword(e)
     {
@@ -77,11 +84,14 @@ export default {
 
     },checkCorrectness()
     {
+      this.error="";
+      let correct=true;
       if(this.title=="")
       {
-        return false;
+        this.error+="• Tittle cannot be empty!\n"
+        correct=false;
       }
-      return(true);
+      return(correct);
     },
     modifyData()
     {
@@ -99,7 +109,7 @@ export default {
     {
       //Need to find if is possible to group the data for easier data transmit
       let self = this;
-      axios.post('http://localhost:8080/app/modify', {
+      axios.post('http://192.168.0.16:8080/app/modify', {
         email: this.$route.params.email,
         password: this.$route.params.password,
         username: this.$route.params.username,
@@ -141,6 +151,22 @@ export default {
         this.type="ToDo"
       }
     },
+    pillColor()
+    {
+      let pill = document.getElementById("priority");
+      if(this.priority=="LOW")
+      {
+        pill.className="badge rounded-pill bg-success myPill";
+      }
+      else if (this.priority=="MEDIUM")
+      {
+        pill.className="badge rounded-pill bg-warning myPill";
+      }
+      else if (this.priority=="HIGH")
+      {
+        pill.className="badge rounded-pill bg-danger myPill";
+      }
+    }
 
   }
 }
@@ -167,6 +193,18 @@ export default {
   max-width: 70%;
   min-width: 450px;
 }
+@media only screen and (max-width: 600px)
+{
+  .myModal
+  {
+    margin-top: 0em;
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+    padding: 2.2em 16px 2.2em 16px;
+  }
+}
+
 .myPills
 {
   margin-top: 8px;

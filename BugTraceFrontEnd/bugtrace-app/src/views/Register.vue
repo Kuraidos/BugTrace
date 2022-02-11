@@ -48,7 +48,7 @@ export default {
         {
           if(this.ConfirmPassword())
           {
-              axios.post('http://localhost:8080/register', {
+              axios.post('http://192.168.0.16:8080/register', {
                 username: this.username,
                 email: this.email,
                 password: this.password

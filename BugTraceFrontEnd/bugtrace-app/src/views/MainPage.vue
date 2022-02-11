@@ -58,7 +58,7 @@ export default {
         getData()
         {
           let self = this;
-          axios.post("http://localhost:8080/app",{email:this.$route.params.email,password:this.$route.params.password,teamId:this.$route.params.teamId}).then(function (response){
+          axios.post("http://192.168.0.16:8080/app",{email:this.$route.params.email,password:this.$route.params.password,teamId:this.$route.params.teamId}).then(function (response){
             self.pageData=response.data
           })
         },

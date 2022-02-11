@@ -2,10 +2,7 @@
 
   <div class="myBackground" @click.self="close">
     <CreateNewBugCard @added="closeEverything" :card="card" v-if="modify"></CreateNewBugCard>
-    <div class="container" v-if="!modify">
-    <div class="row">
-      <div @click.self="close" class="col-3"></div>
-      <div class="col-6">
+    <div v-if="!modify">
         <div  class="myModal">
           <h5 class="card-title">{{ card.title }}</h5>
           <div class="myAuthorAndData">
@@ -41,9 +38,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-3"></div>
-    </div>
   </div>
   </div>
 
@@ -73,7 +67,7 @@ export default {
     {
       //sending data
       let self = this;
-      axios.post('http://localhost:8080/app/modify', {
+      axios.post('http://192.168.0.16:8080/app/modify', {
         email: this.$route.params.email,
         password: this.$route.params.password,
         username: this.$route.params.username,
@@ -84,19 +78,23 @@ export default {
         keywords:this.card.keywords,
         description:this.card.description,
         cardId: this.card.cardId,
-        completedBy:this.$route.params.username}).then(function (response) {
-      });
-    },
+        completedBy:this.$route.params.username}).then(function (response)
+          {
+          }
+      );
+      this.closeEverything();
+      },
     removeCard()
     {
       let self = this;
-      axios.post('http://localhost:8080/app/remove', {
+      axios.post('http://192.168.0.16:8080/app/remove', {
         email: this.$route.params.email,
         password: this.$route.params.password,
         teamId: this.$route.params.teamId,
         cardId: this.card.cardId}).then(function (response) {
       });
-    },
+      this.closeEverything();
+      },
     modifyCard()
     {
       this.modify=true;
@@ -118,6 +116,8 @@ export default {
   background: rgba(0,0,0,0.5);
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
 
 }
 .myModal
@@ -126,12 +126,45 @@ export default {
   margin-top: 6em;
   padding: 16px 16px 50px 16px;
   border-radius: 20px;
+  min-width: 600px;
+  max-width: 70%;
+
 }
 .myAuthorAndData
 {
   display: inline-block;
   margin-right: 16px;
 }
+
+@media only screen and (max-width: 600px)
+{
+  .myModal
+  {
+    background: white;
+    margin-top: 0em;
+    padding: 16px 16px 16px 16px;
+    border-radius: 20px;
+    min-width: 600px;
+    max-width: 100%;
+    min-height: 100%;
+    text-align: center;
+
+  }
+  .myAuthorAndData
+  {
+    display: block;
+    margin-right: 0 ;
+
+  }
+  .myPill
+  {
+    margin-top: 8px;
+    margin-right: 4px;
+    margin-bottom: 8px;
+  }
+}
+
+
 .myDescription
 {
   margin-top: 20px;
@@ -144,6 +177,11 @@ export default {
 {
   margin-top: 8px;
   margin-right: 4px;
+}
+
+.card-title
+{
+  text-align: center;
 }
 
 </style>
