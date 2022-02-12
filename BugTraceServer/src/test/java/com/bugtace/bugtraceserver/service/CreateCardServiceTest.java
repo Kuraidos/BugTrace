@@ -71,11 +71,11 @@ class CreateCardServiceTest {
     void createInProgressCard()
     {
         boolean result = false;
-        Team testTeam= teamRepository.findById(testUser.getTeamId()).orElse(null);
+        Team testTeam= teamRepository.findById(testUser.getActiveTeamIds().get(0)).orElse(null);
         if(testTeam!=null)
         {
-            underTest.CreateCard(email,password,testUser.getTeamId().toString(),username,title,assignTo,priority.toString(),keywords,description);
-            testTeam= teamRepository.findById(testUser.getTeamId()).orElse(null);
+            underTest.CreateCard(email,password,testUser.getActiveTeamIds().get(0).toString(),username,title,assignTo,priority.toString(),keywords,description);
+            testTeam= teamRepository.findById(testUser.getActiveTeamIds().get(0)).orElse(null);
             List<Card> testCards = testTeam.getInProgress();
             Card testCard =testCards.get(0);
             result=testCard.getTitle().equals(title);
@@ -88,11 +88,11 @@ class CreateCardServiceTest {
     void createToDOCard()
     {
         boolean result = false;
-        Team testTeam= teamRepository.findById(testUser.getTeamId()).orElse(null);
+        Team testTeam= teamRepository.findById(testUser.getActiveTeamIds().get(0)).orElse(null);
         if(testTeam!=null)
         {
-            underTest.CreateCard(email,password,testUser.getTeamId().toString(),username,title,"",priority.toString(),keywords,description);
-            testTeam= teamRepository.findById(testUser.getTeamId()).orElse(null);
+            underTest.CreateCard(email,password,testUser.getActiveTeamIds().get(0).toString(),username,title,"",priority.toString(),keywords,description);
+            testTeam= teamRepository.findById(testUser.getActiveTeamIds().get(0)).orElse(null);
             List<Card> testCards = testTeam.getToDos();
             Card testCard =testCards.get(0);
             result=testCard.getTitle().equals(title);
@@ -105,11 +105,11 @@ class CreateCardServiceTest {
     void failCreateCard()
     {
         boolean result = false;
-        Team testTeam= teamRepository.findById(testUser.getTeamId()).orElse(null);
+        Team testTeam= teamRepository.findById(testUser.getActiveTeamIds().get(0)).orElse(null);
         if(testTeam!=null)
         {
-            underTest.CreateCard(email,email,testUser.getTeamId().toString(),username,title,"",priority.toString(),keywords,description);
-            testTeam= teamRepository.findById(testUser.getTeamId()).orElse(null);
+            underTest.CreateCard(email,email,testUser.getActiveTeamIds().get(0).toString(),username,title,"",priority.toString(),keywords,description);
+            testTeam= teamRepository.findById(testUser.getActiveTeamIds().get(0)).orElse(null);
             List<Card> testCards = testTeam.getToDos();
             if(testCards.size()>1){
                 Card testCard =testCards.get(0);

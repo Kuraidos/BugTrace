@@ -52,7 +52,7 @@ class MainPageDataServiceTest {
 
         testUser= new User(username,email,password);
         userRegisterService.addUser(testUser);
-        testTeam=teamRepository.findById(testUser.getTeamId());
+        testTeam=teamRepository.findById(testUser.getActiveTeamIds().get(0));
 
     }
 
@@ -71,7 +71,7 @@ class MainPageDataServiceTest {
     {
 
         boolean result =false;
-        Team received = underTest.getMainPageData(email,password);
+        Team received = underTest.getMainPageData(email,password,null);
         if(received!=null)
         {
             result=true;
@@ -83,7 +83,7 @@ class MainPageDataServiceTest {
     {
 
         boolean result =false;
-        Team received = underTest.getMainPageData(email,email);
+        Team received = underTest.getMainPageData(email,email,null);
         if(received!=null)
         {
             result=true;

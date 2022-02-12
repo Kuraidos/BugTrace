@@ -63,7 +63,7 @@ class RemoveCardServiceTest {
 
         testUser= new User(username,email,password);
         userRegisterService.addUser(testUser);
-        createCardService.CreateCard(email,password,testUser.getTeamId().toString(),username,title,assignTo,priority.toString(),keywords,description);
+        createCardService.CreateCard(email,password,testUser.getActiveTeamIds().get(0).toString(),username,title,assignTo,priority.toString(),keywords,description);
     }
 
     //Delete contents of database after each
@@ -80,15 +80,15 @@ class RemoveCardServiceTest {
     void removeCard()
     {
         boolean result = false;
-        testTeam= teamRepository.findById(testUser.getTeamId()).orElse(null);
+        testTeam= teamRepository.findById(testUser.getActiveTeamIds().get(0)).orElse(null);
         if(testTeam!=null)
         {
             List<Card> allCards= new ArrayList<>();
             allCards.addAll(testTeam.getToDos());
             allCards.addAll(testTeam.getCompleted());
             allCards.addAll(testTeam.getInProgress());
-            underTest.removeCard(email,password,testUser.getTeamId().toString(),allCards.get(0).getCardId().toString());
-            testTeam= teamRepository.findById(testUser.getTeamId()).orElse(null);
+            underTest.removeCard(email,password,testUser.getActiveTeamIds().get(0).toString(),allCards.get(0).getCardId().toString());
+            testTeam= teamRepository.findById(testUser.getActiveTeamIds().get(0)).orElse(null);
             if(testTeam!=null && testTeam.getToDos().size()==0 && testTeam.getInProgress().size()==0 && testTeam.getCompleted().size()==0)
             {
                 result=true;
@@ -102,15 +102,15 @@ class RemoveCardServiceTest {
     void failRemoveCard()
     {
         boolean result = false;
-        testTeam= teamRepository.findById(testUser.getTeamId()).orElse(null);
+        testTeam= teamRepository.findById(testUser.getActiveTeamIds().get(0)).orElse(null);
         if(testTeam!=null)
         {
             List<Card> allCards= new ArrayList<>();
             allCards.addAll(testTeam.getToDos());
             allCards.addAll(testTeam.getCompleted());
             allCards.addAll(testTeam.getInProgress());
-            underTest.removeCard(email,email,testUser.getTeamId().toString(),allCards.get(0).getCardId().toString());
-            testTeam= teamRepository.findById(testUser.getTeamId()).orElse(null);
+            underTest.removeCard(email,email,testUser.getActiveTeamIds().get(0).toString(),allCards.get(0).getCardId().toString());
+            testTeam= teamRepository.findById(testUser.getActiveTeamIds().get(0)).orElse(null);
             if(testTeam!=null && testTeam.getToDos().size()==0 && testTeam.getInProgress().size()==0 && testTeam.getCompleted().size()==0)
             {
                 result=true;

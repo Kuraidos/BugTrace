@@ -59,7 +59,7 @@ class ModifyCardServiceTest {
 
         testUser=new User(username,email,password);
         userRegisterService.addUser(testUser);
-        createCardService.CreateCard(email,password,testUser.getTeamId().toString(),username,title,assignTo,priority.toString(),keywords,description);
+        createCardService.CreateCard(email,password,testUser.getActiveTeamIds().get(0).toString(),username,title,assignTo,priority.toString(),keywords,description);
 
     }
 
@@ -69,7 +69,7 @@ class ModifyCardServiceTest {
     {
         Card testCard = cardRepository.findAll().get(0);
         String newTitle="NewTitle";
-        underTest.modifyCard(email,password,testUser.getTeamId().toString(),username,newTitle,assignTo,priority.toString(),keywords,description,"",testCard.getCardId().toString());
+        underTest.modifyCard(email,password,testUser.getActiveTeamIds().get(0).toString(),username,newTitle,assignTo,priority.toString(),keywords,description,"",testCard.getCardId().toString());
         testCard = cardRepository.findById(testCard.getCardId()).orElse(null);
         assertEquals(newTitle,testCard.getTitle());
     }
@@ -80,7 +80,7 @@ class ModifyCardServiceTest {
     {
         Card testCard = cardRepository.findAll().get(0);
         String newTitle="NewTitle";
-        underTest.modifyCard(email,email,testUser.getTeamId().toString(),username,newTitle,assignTo,priority.toString(),keywords,description,"",testCard.getCardId().toString());
+        underTest.modifyCard(email,email,testUser.getActiveTeamIds().get(0).toString(),username,newTitle,assignTo,priority.toString(),keywords,description,"",testCard.getCardId().toString());
         testCard = cardRepository.findById(testCard.getCardId()).orElse(null);
         assertEquals(title,testCard.getTitle());
     }
@@ -91,7 +91,7 @@ class ModifyCardServiceTest {
     {
         Card testCard = cardRepository.findAll().get(0);
         String newTitle="NewTitle";
-        underTest.modifyCard(email,password,testUser.getTeamId().toString(),username,newTitle,"",priority.toString(),keywords,description,"",testCard.getCardId().toString());
+        underTest.modifyCard(email,password,testUser.getActiveTeamIds().get(0).toString(),username,newTitle,"",priority.toString(),keywords,description,"",testCard.getCardId().toString());
         testCard = cardRepository.findById(testCard.getCardId()).orElse(null);
         assertEquals(newTitle,testCard.getTitle());
     }
@@ -102,7 +102,7 @@ class ModifyCardServiceTest {
     {
         Card testCard = cardRepository.findAll().get(0);
         String newTitle="NewTitle";
-        underTest.modifyCard(email,password,testUser.getTeamId().toString(),username,newTitle,"",priority.toString(),keywords,description,username,testCard.getCardId().toString());
+        underTest.modifyCard(email,password,testUser.getActiveTeamIds().get(0).toString(),username,newTitle,"",priority.toString(),keywords,description,username,testCard.getCardId().toString());
         testCard = cardRepository.findById(testCard.getCardId()).orElse(null);
         assertEquals(newTitle,testCard.getTitle());
     }

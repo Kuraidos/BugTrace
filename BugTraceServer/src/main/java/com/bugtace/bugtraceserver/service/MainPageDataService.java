@@ -35,13 +35,25 @@ public class MainPageDataService
         this.userRepository=userRepository;
     }
 
-    public Team getMainPageData(String email, String password)
+    public Team getMainPageData(String email, String password, UUID teamID)
     {
-        if(verify.verifyExists(email, password))
+        if(teamID==null)
         {
-            User user = userRepository.getById(email);
-            return teamRepository.findById(user.getTeamId()).orElse(null);
+            if(verify.verifyExists(email, password))
+            {
+                User user = userRepository.getById(email);
+                return teamRepository.findById(user.getActiveTeamIds().get(0)).orElse(null);
+            }
         }
+        else
+        {
+            if(verify.verifyExists(email, password) && verify.verifyPartOfTeam(email,teamID.toString()))
+            {
+                User user = userRepository.getById(email);
+                return teamRepository.findById(teamID).orElse(null);
+            }
+        }
+
         return null;
     }
 

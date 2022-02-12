@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RequestMapping("app")
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -25,7 +27,16 @@ public class MainPageDataController
     public Team getMainPageData(@RequestBody ObjectNode json)
     {
         logger.info("Request: "+json.toString());
-        Team result =service.getMainPageData(json.get("email").asText(),json.get("password").asText());
+        Team result;
+
+        if(json.size()==2)
+        {
+            result =service.getMainPageData(json.get("email").asText(),json.get("password").asText(), null);
+        }
+        else
+        {
+            result =service.getMainPageData(json.get("email").asText(),json.get("password").asText(), UUID.fromString(json.get("teamID").asText()));
+        }
         logger.info("Response: "+result);
         return result;
     }

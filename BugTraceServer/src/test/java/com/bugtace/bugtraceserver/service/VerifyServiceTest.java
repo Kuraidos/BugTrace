@@ -81,7 +81,7 @@ class VerifyServiceTest {
     @Test
     void verifyPartOfTeam()
     {
-        boolean result = underTest.verifyPartOfTeam(email,testUser.getTeamId().toString());
+        boolean result = underTest.verifyPartOfTeam(email,testUser.getActiveTeamIds().get(0).toString());
 
         assertEquals(true,result);
     }

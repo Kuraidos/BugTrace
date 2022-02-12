@@ -136,7 +136,7 @@ class TeamTest {
     @Test
     void getTeamId()
     {
-        assertEquals(testUser.getTeamId(),underTest.getTeamId());
+        assertEquals(testUser.getActiveTeamIds().get(0),underTest.getTeamId());
     }
 
     @Test
