@@ -3,6 +3,7 @@ import Login from '../views/Login.vue'
 import Register from "@/views/Register";
 import NotFound from "@/views/NotFound"
 import MainPage from "@/views/MainPage";
+import Profile from "@/views/Profile";
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/app',
     name: 'MainPage',
     component: MainPage
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile
   }
 ]
 
