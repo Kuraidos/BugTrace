@@ -1,6 +1,7 @@
 package com.bugtace.bugtraceserver.api;
 
 import com.bugtace.bugtraceserver.service.UserRegisterService;
+import com.bugtace.bugtraceserver.service.UserTeamListService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,10 @@ import java.util.UUID;
 public class TeamListController
 {
 
-    private final UserRegisterService userTeamListService;
+    private final UserTeamListService userTeamListService;
 
     @Autowired
-    public TeamListController(UserRegisterService userTeamListService)
+    public TeamListController(UserTeamListService userTeamListService)
     {
         this.userTeamListService=userTeamListService;
     }
@@ -26,13 +27,6 @@ public class TeamListController
     @PostMapping
     public List<UUID>[] addUser(@RequestBody ObjectNode json)
     {
-       List<UUID>[] result = new List[2];
-       result[0]= new ArrayList<UUID>();
-       result[0].add(UUID.randomUUID());
-       result[0].add(UUID.randomUUID());
-       result[1]= new ArrayList<UUID>();
-       result[1].add(UUID.randomUUID());
-       result[1].add(UUID.randomUUID());
-       return result;
+        return (userTeamListService.getTeamList(json.get("email").asText(), json.get("password").asText()));
     }
 }

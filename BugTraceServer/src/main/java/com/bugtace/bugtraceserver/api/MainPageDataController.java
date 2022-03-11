@@ -35,7 +35,7 @@ public class MainPageDataController
         }
         else
         {
-            result =service.getMainPageData(json.get("email").asText(),json.get("password").asText(), UUID.fromString(json.get("teamID").asText()));
+            result =service.getMainPageData(json.get("email").asText(),json.get("password").asText(), UUID.fromString(json.get("teamId").asText()));
         }
         logger.info("Response: "+result);
         return result;

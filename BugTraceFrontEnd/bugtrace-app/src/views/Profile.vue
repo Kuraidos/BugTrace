@@ -5,8 +5,8 @@
       <div class="col-4">
         <h5 style="text-align: center">Profile</h5>
         <ul class="list-group">
-          <li class="list-group-item active">Details</li>
-          <li class="list-group-item">Teams</li>
+          <li class="list-group-item">Details</li>
+          <li class="list-group-item active">Teams</li>
           <li class="list-group-item">Logout</li>
         </ul>
       </div>
@@ -27,6 +27,7 @@
             <div class="myTeam">
               <p class="teamValues action">Active</p>
               <p class="teamValues">serelisltu@gmail.com</p>
+              <p>some text {{this.$route.params}}</p>
               <div class="myButtons teamValues">
                 <button type="button" class="btn btn-success">Accept</button>
                 <button type="button" class="btn btn-danger">Ignore</button>

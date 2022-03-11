@@ -52,11 +52,10 @@ export default {
       let password = this.password;
       let email = this.email;
 
-      axios.post('http://192.168.0.16:8080/app', {email: email, password: password}).then(function (response) {
+      axios.post(process.env.VUE_APP_ROOT_URL+'app', {email: email, password: password}).then(function (response) {
         if(response.data!="")
         {
           self.$router.push({name:"MainPage",params:{username: (response,email),password: password, email:email, teamId: response.data.teamId}});
-          this.test="click";
         }
 
       });

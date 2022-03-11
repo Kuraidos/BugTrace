@@ -23,7 +23,8 @@
           <a class="nav-link" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Profile</a>
+          <a class="nav-link" style="cursor: pointer"
+             @click="this.$router.push({name:'Profile',params:{password: this.$route.params.password, email:this.$route.params.email}})">Profile</a>
         </li>
       </ul>
     </div>

@@ -67,7 +67,7 @@ export default {
     {
       //sending data
       let self = this;
-      axios.post('http://192.168.0.16:8080/app/modify', {
+      axios.post(process.env.VUE_APP_ROOT_URL+'app/modify', {
         email: this.$route.params.email,
         password: this.$route.params.password,
         username: this.$route.params.username,
@@ -87,7 +87,7 @@ export default {
     removeCard()
     {
       let self = this;
-      axios.post('http://192.168.0.16:8080/app/remove', {
+      axios.post(process.env.VUE_APP_ROOT_URL+'app/remove', {
         email: this.$route.params.email,
         password: this.$route.params.password,
         teamId: this.$route.params.teamId,

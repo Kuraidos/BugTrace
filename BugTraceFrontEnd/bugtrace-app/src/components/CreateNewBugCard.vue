@@ -67,7 +67,7 @@ export default {
     {if(this.checkCorrectness())
     {
       let self = this;
-      axios.post('http://localhost:8080/app/create', {email: this.$route.params.email, password: this.$route.params.password,username: this.$route.params.username,teamId: this.$route.params.teamId,
+      axios.post(process.env.VUE_APP_ROOT_URL+'app/create', {email: this.$route.params.email, password: this.$route.params.password,username: this.$route.params.username,teamId: this.$route.params.teamId,
         title: this.title,assignTo:this.assignTo,priority:this.priority,keywords:this.keywords,description:this.description}).then(function (response) {
       });
       this.addedEvent()
@@ -109,7 +109,7 @@ export default {
     {
       //Need to find if is possible to group the data for easier data transmit
       let self = this;
-      axios.post('http://192.168.0.16:8080/app/modify', {
+      axios.post(process.env.VUE_APP_ROOT_URL+'app/modify', {
         email: this.$route.params.email,
         password: this.$route.params.password,
         username: this.$route.params.username,

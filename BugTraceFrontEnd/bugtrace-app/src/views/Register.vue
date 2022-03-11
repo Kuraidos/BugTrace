@@ -48,7 +48,8 @@ export default {
         {
           if(this.ConfirmPassword())
           {
-              axios.post('http://192.168.0.16:8080/register', {
+
+              axios.post(process.env.VUE_APP_ROOT_URL+'register', {
                 username: this.username,
                 email: this.email,
                 password: this.password

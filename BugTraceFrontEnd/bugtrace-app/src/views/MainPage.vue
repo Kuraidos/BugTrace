@@ -1,5 +1,6 @@
 <template>
   <nav-bar></nav-bar>
+  <p>some text {{this.$route.params}}</p>
   <create-new-bug-card v-if="showCreateModal" style="z-index: 2" @added="closeCreateModal()"></create-new-bug-card>
   <modal-click-on-card @close='tempCard=""' :card="tempCard" v-if="tempCard" style="z-index: 2"></modal-click-on-card>
   <div class="container">
@@ -58,7 +59,7 @@ export default {
         getData()
         {
           let self = this;
-          axios.post("http://192.168.0.16:8080/app",{email:this.$route.params.email,password:this.$route.params.password,teamId:this.$route.params.teamId}).then(function (response){
+          axios.post(process.env.VUE_APP_ROOT_URL+"app",{email:this.$route.params.email,password:this.$route.params.password,teamId:this.$route.params.teamId}).then(function (response){
             self.pageData=response.data
           })
         },
