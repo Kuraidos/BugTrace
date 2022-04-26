@@ -40,7 +40,6 @@ public class UserRegisterService
             teamMemberRepository.saveAll(newTeam.getTeamMembers());
             teamRepository.save(newTeam);
 
-            user.getActiveTeamIds().set(0,newTeam.getTeamId());
             userRepository.save(user);
 
             return 1;

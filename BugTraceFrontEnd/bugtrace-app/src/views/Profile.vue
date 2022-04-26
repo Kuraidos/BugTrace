@@ -27,7 +27,16 @@
             <div class="myTeam">
               <p class="teamValues action">Active</p>
               <p class="teamValues">serelisltu@gmail.com</p>
-              <p>some text {{this.$route.params}}</p>
+              <div class="myButtons teamValues">
+                <button type="button" class="btn btn-success">Accept</button>
+                <button type="button" class="btn btn-danger">Ignore</button>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item" v-for="team in teams">
+            <div class="myTeam">
+              <p class="teamValues action">{{team.level}}</p>
+              <p class="teamValues">{{team.nameOfTeam}}</p>
               <div class="myButtons teamValues">
                 <button type="button" class="btn btn-success">Accept</button>
                 <button type="button" class="btn btn-danger">Ignore</button>
@@ -42,12 +51,36 @@
 
 <script>
 import navBar from "@/components/navBar";
+import axios from "axios";
 export default {
   name: "Profile",
   components:
 {
   navBar
-}
+},
+  data()
+  {
+    return{
+      teams:{}
+
+    }
+  },
+  created()
+  {
+    this.getTeams();
+  },
+  methods:
+  {
+    getTeams()
+    {
+      let self = this;
+      axios.post(process.env.VUE_APP_ROOT_URL+"teamDetailsProfile",{email:this.$route.params.email,password:this.$route.params.password}).then(function (response){
+        self.teams=response.data;
+        console.log(response.data);
+
+      })
+    }
+  }
 }
 </script>
 

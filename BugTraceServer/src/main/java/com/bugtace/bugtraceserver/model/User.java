@@ -19,9 +19,8 @@ public class User
     @Column(nullable = false)
     private String password;
     @ElementCollection
-    private List<UUID> activeTeamIds = new ArrayList<>();
-    @ElementCollection
-    private List<UUID> inviteTeamIds = new ArrayList<>();
+    private List<UUID> teamIds = new ArrayList<>();
+
 
     public User(@JsonProperty("username") String username,@JsonProperty("email") String email, @JsonProperty("password") String password) {
         this.username = username;
@@ -57,20 +56,12 @@ public class User
         this.password = password;
     }
 
-    public List<UUID> getActiveTeamIds() {
-        return activeTeamIds;
+    public List<UUID> getTeamIds() {
+        return teamIds;
     }
 
-    public void setActiveTeamIds(List<UUID> activeTeamIds) {
-        this.activeTeamIds = activeTeamIds;
-    }
-
-    public List<UUID> getInviteTeamIds() {
-        return inviteTeamIds;
-    }
-
-    public void setInviteTeamIds(List<UUID> inviteTeamIds) {
-        this.inviteTeamIds = inviteTeamIds;
+    public void setTeamIds(List<UUID> teamIds) {
+        this.teamIds = teamIds;
     }
 
     @Override
@@ -79,8 +70,7 @@ public class User
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", activeTeamIds=" + activeTeamIds +
-                ", inviteTeamIds=" + inviteTeamIds +
+                ", teamIds=" + teamIds +
                 '}';
     }
 }

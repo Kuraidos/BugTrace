@@ -42,7 +42,7 @@ public class MainPageDataService
             if(verify.verifyExists(email, password))
             {
                 User user = userRepository.getById(email);
-                return teamRepository.findById(user.getActiveTeamIds().get(0)).orElse(null);
+                return teamRepository.findById(user.getTeamIds().get(0)).orElse(null);
             }
         }
         else

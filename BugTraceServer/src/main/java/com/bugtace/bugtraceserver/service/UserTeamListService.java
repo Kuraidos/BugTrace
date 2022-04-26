@@ -5,8 +5,11 @@ import com.bugtace.bugtraceserver.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+
 
 @Service
 public class UserTeamListService
@@ -21,14 +24,13 @@ public class UserTeamListService
         this.verify=verify;
     }
 
-    public List<UUID>[] getTeamList(String email, String password)
+    public List<UUID> getTeamList(String email, String password)
     {
         if(verify.verifyExists(email,password))
         {
-            List<UUID>[] result = new List[2];
+            List<UUID> result = new ArrayList<>();
             User user = userRepository.getById(email);
-            result[0]=user.getInviteTeamIds();
-            result[1]=user.getActiveTeamIds();
+            result=user.getTeamIds();
             return result;
         }
         return null;

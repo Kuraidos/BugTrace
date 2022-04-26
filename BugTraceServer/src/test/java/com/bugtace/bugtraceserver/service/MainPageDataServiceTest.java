@@ -52,7 +52,7 @@ class MainPageDataServiceTest {
 
         testUser= new User(username,email,password);
         userRegisterService.addUser(testUser);
-        testTeam=teamRepository.findById(testUser.getActiveTeamIds().get(0));
+        testTeam=teamRepository.findById(testUser.getTeamIds().get(0));
 
     }
 

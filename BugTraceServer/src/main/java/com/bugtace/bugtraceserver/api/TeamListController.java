@@ -25,7 +25,7 @@ public class TeamListController
     }
 
     @PostMapping
-    public List<UUID>[] addUser(@RequestBody ObjectNode json)
+    public List<UUID> addUser(@RequestBody ObjectNode json)
     {
         return (userTeamListService.getTeamList(json.get("email").asText(), json.get("password").asText()));
     }
